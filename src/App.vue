@@ -4,6 +4,7 @@ import { RouterView } from 'vue-router';
 import Toast from 'primevue/toast';
 
 import Menubar from 'primevue/menubar';
+import Avatar from 'primevue/avatar';
 
 const menus = ref([
   {
@@ -21,6 +22,9 @@ const menus = ref([
   <Menubar class="menubar" :model="menus">
     <template #start>
       <img class="logo" src="/home.svg" >
+    </template>
+    <template #end>
+      <Avatar icon="pi pi-user" />
     </template>
   </Menubar>
   <RouterView />

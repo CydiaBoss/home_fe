@@ -17,6 +17,7 @@ import "primeicons/primeicons.css";
 
 // PrimeVue Components
 import Menubar from 'primevue/menubar';
+import Avatar from 'primevue/avatar';
 import Paginator from 'primevue/paginator';
 import Button from 'primevue/button';
 
@@ -53,6 +54,7 @@ app.use(ToastService);
 app.use(DialogService);
 
 app.component("Menubar", Menubar);
+app.component("Avatar", Avatar);
 app.component("Paginator", Paginator);
 app.component("Button", Button);
 
