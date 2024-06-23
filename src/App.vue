@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
 import { RouterView } from 'vue-router';
 import Toast from 'primevue/toast';
 
@@ -12,28 +11,26 @@ const menus = ref([
     icon: 'pi pi-home'
   },
   {
-      label: 'Contact',
-      icon: 'pi pi-envelope'
+    label: 'Contact',
+    icon: 'pi pi-envelope'
   }
 ]);
 </script>
 
 <template>
-  <div>
-    <Menubar :model="menus">
-      <template #start>
-        <img class="logo" src="/src/assets/home.svg" >
-      </template>
-    </Menubar>
-  </div>
+  <Menubar class="menubar" :model="menus">
+    <template #start>
+      <img class="logo" src="/home.svg" >
+    </template>
+  </Menubar>
   <RouterView />
   <Toast />
 </template>
 
 <style scoped>
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  height: 5em;
+  padding: 1em;
   will-change: filter;
   transition: filter 300ms;
 }

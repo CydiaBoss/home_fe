@@ -2,9 +2,12 @@ import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import './style.css';
 
+// Localization
+import i18n from './i18n'
+
 // Personal Views
 import App from './App.vue';
-import HelloWorld from './components/HelloWorld.vue';
+import Home from './components/Home.vue';
 
 // PrimeVue & PrimeIcon
 import PrimeVue from 'primevue/config';
@@ -24,13 +27,15 @@ import DialogService from "primevue/dialogservice";
 
 const app = createApp(App);
 
+app.use(i18n);
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: "/",
             name: "home",
-            component: HelloWorld,
+            component: Home,
             props: { msg: "Wang HQ Database" }
         },
     ],
