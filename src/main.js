@@ -8,11 +8,13 @@ import HelloWorld from './components/HelloWorld.vue';
 
 // PrimeVue & PrimeIcon
 import PrimeVue from 'primevue/config';
-import "primevue/resources/themes/lara-dark-indigo/theme.css";
-import "primevue/resources/primevue.min.css";
+import 'primevue/resources/themes/aura-dark-green/theme.css';
+import Aura from '@primevue/themes/aura';
 import "primeicons/primeicons.css";
 
 // PrimeVue Components
+import Menubar from 'primevue/menubar';
+import Paginator from 'primevue/paginator';
 import Button from 'primevue/button';
 
 // PrimeVue Services
@@ -29,17 +31,24 @@ const router = createRouter({
             path: "/",
             name: "home",
             component: HelloWorld,
-            props: { msg: "Hello Sussy" }
+            props: { msg: "Wang HQ Database" }
         },
     ],
 });
 
 app.use(router);
-app.use(PrimeVue, { ripple: true });
+app.use(PrimeVue, { 
+    ripple: true,
+    theme: {
+        preset: Aura
+    }
+});
 app.use(ConfirmationService);
 app.use(ToastService);
 app.use(DialogService);
 
+app.component("Menubar", Menubar);
+app.component("Paginator", Paginator);
 app.component("Button", Button);
 
 app.mount('#app');

@@ -1,18 +1,66 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue';
 import { RouterView } from 'vue-router';
+import Toast from 'primevue/toast';
+
+import Menubar from 'primevue/menubar';
 </script>
 
 <template>
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <Menubar :model="[
+          {
+              label: 'Home',
+              icon: 'pi pi-home'
+          },
+          {
+              label: 'Features',
+              icon: 'pi pi-star'
+          },
+          {
+              label: 'Projects',
+              icon: 'pi pi-search',
+              items: [
+                  {
+                      label: 'Components',
+                      icon: 'pi pi-bolt'
+                  },
+                  {
+                      label: 'Blocks',
+                      icon: 'pi pi-server'
+                  },
+                  {
+                      label: 'UI Kit',
+                      icon: 'pi pi-pencil'
+                  },
+                  {
+                      label: 'Templates',
+                      icon: 'pi pi-palette',
+                      items: [
+                          {
+                              label: 'Apollo',
+                              icon: 'pi pi-palette'
+                          },
+                          {
+                              label: 'Ultima',
+                              icon: 'pi pi-palette'
+                          }
+                      ]
+                  }
+              ]
+          },
+          {
+              label: 'Contact',
+              icon: 'pi pi-envelope'
+          }
+      ]">
+        <template #start>
+          <img class="logo" src="/src/assets/home.svg" >
+        </template>
+      </Menubar>
   </div>
   <RouterView />
+  <Toast />
 </template>
 
 <style scoped>
@@ -23,9 +71,6 @@ import { RouterView } from 'vue-router';
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+  filter: drop-shadow(0 0 1em #646cffaa);
 }
 </style>
