@@ -20,8 +20,13 @@ import "primeicons/primeicons.css";
 // PrimeVue Components
 import Menubar from 'primevue/menubar';
 import Avatar from 'primevue/avatar';
-import Paginator from 'primevue/paginator';
 import Button from 'primevue/button';
+import Message from 'primevue/message';
+
+// PrimeVue Form
+import { Form } from '@primevue/forms';
+import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
 
 // PrimeVue Services
 import ConfirmationService from "primevue/confirmationservice";
@@ -67,7 +72,11 @@ app.use(DialogService);
 
 app.component("Menubar", Menubar);
 app.component("Avatar", Avatar);
-app.component("Paginator", Paginator);
+app.component("Message", Message);
+
+app.component("Form", Form);
+app.component("InputText", InputText);
+app.component("Password", Password);
 app.component("Button", Button);
 
 app.mount('#app');
