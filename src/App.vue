@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { RouterView, useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import Toast from 'primevue/toast';
 
 import Menubar from 'primevue/menubar';
@@ -8,16 +9,18 @@ import Avatar from 'primevue/avatar';
 
 const router = useRouter();
 
+const i18n = useI18n();
+
 const menus = ref([
   {
-    label: 'Home',
+    label: i18n.t('home'),
     icon: 'pi pi-home',
     command: () => navigateTo("/"),
   },
   {
-    label: 'Contact',
-    icon: 'pi pi-envelope',
-    command: () => navigateTo("/contacts"),
+    label: i18n.t('photos'),
+    icon: 'pi pi-images',
+    command: () => navigateTo("/photos/"),
   }
 ]);
 
@@ -34,10 +37,10 @@ function navigateTo(path) {
 <template>
   <Menubar class="menubar" :model="menus">
     <template #start>
-      <img class="logo" src="/home.svg" >
+      <img class="logo" src="/home.svg" @click="navigateTo('/')"/>
     </template>
     <template #end>
-      <Avatar class="user" icon="pi pi-user" shape="circle" />
+      <Avatar class="user" icon="pi pi-user" shape="circle" @click="navigateTo('/login/')" />
     </template>
   </Menubar>
   <RouterView/>
@@ -46,7 +49,7 @@ function navigateTo(path) {
 
 <style scoped>
 .logo {
-  height: 5em;
+  height: 4em;
   padding: 1em;
   will-change: filter;
   transition: filter 300ms;
