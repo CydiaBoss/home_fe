@@ -1,21 +1,34 @@
 <script setup>
 import { ref } from 'vue';
-import { RouterView } from 'vue-router';
+import { RouterView, useRouter } from 'vue-router';
 import Toast from 'primevue/toast';
 
 import Menubar from 'primevue/menubar';
 import Avatar from 'primevue/avatar';
 
+const router = useRouter();
+
 const menus = ref([
   {
     label: 'Home',
-    icon: 'pi pi-home'
+    icon: 'pi pi-home',
+    command: () => navigateTo("/"),
   },
   {
     label: 'Contact',
-    icon: 'pi pi-envelope'
+    icon: 'pi pi-envelope',
+    command: () => navigateTo("/contacts"),
   }
 ]);
+
+/**
+ * Controls Router
+ * 
+ * @param path Nagivate to the given path
+ */
+function navigateTo(path) {
+  router.push(path);
+}
 </script>
 
 <template>
@@ -24,10 +37,10 @@ const menus = ref([
       <img class="logo" src="/home.svg" >
     </template>
     <template #end>
-      <Avatar icon="pi pi-user" />
+      <Avatar class="user" icon="pi pi-user" shape="circle" />
     </template>
   </Menubar>
-  <RouterView />
+  <RouterView/>
   <Toast />
 </template>
 
@@ -39,6 +52,16 @@ const menus = ref([
   transition: filter 300ms;
 }
 .logo:hover {
+  filter: drop-shadow(0 0 1em #646cffaa);
+}
+.menubar {
+  border-radius: 2em;
+  vertical-align: top;
+}
+.user {
+  margin-right: 1em;
+}
+.user:hover {
   filter: drop-shadow(0 0 1em #646cffaa);
 }
 </style>

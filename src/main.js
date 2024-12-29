@@ -8,6 +8,7 @@ import i18n from './i18n'
 // Personal Views
 import App from './App.vue';
 import Home from './components/Home.vue';
+import Photo from './components/Photo.vue';
 
 // PrimeVue & PrimeIcon
 import PrimeVue from 'primevue/config';
@@ -38,6 +39,12 @@ const router = createRouter({
             name: "home",
             component: Home,
             props: { msg: "Wang HQ Database" }
+        },
+        {
+            path: "/contacts/",
+            name: "contacts",
+            component: Photo,
+            props: { msg: "Wang HQ Database Photos" }
         },
     ],
 });
