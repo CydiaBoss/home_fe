@@ -44,6 +44,11 @@ h1 {
   line-height: 1.1;
 }
 
+/* Custom */
+.p-password-input {
+  width: 100%;
+}
+
 #app {
   width: 90%;
   margin: 0 auto;

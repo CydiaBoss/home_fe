@@ -16,6 +16,7 @@ const i18n = createI18n({
 		password: "Password",
 		home: "Home",
 		photos: "Photos",
+		submit: "Submit",
     },
     fr: {
 		appTitle: "Base de données de Wang HQ",
@@ -26,6 +27,7 @@ const i18n = createI18n({
 		password: "Mot de passe",
 		home: "Accueil",
 		photos: "Photos",
+		submit: "Soumettre",
 	},
     zh_cn: {
 		appTitle: "王HQ数据库",
@@ -36,6 +38,7 @@ const i18n = createI18n({
 		password: "密码",
 		home: "家",
 		photos: "照片",
+		submit: "提交",
 	},
     zh_tw: {
 		appTitle: "王HQ數據庫",
@@ -46,6 +49,7 @@ const i18n = createI18n({
 		password: "密碼",
 		home: "家",
 		photos: "照片",
+		submit: "提交",
 	},
   },
 })

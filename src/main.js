@@ -13,20 +13,19 @@ import Login from './components/Login.vue';
 
 // PrimeVue & PrimeIcon
 import PrimeVue from 'primevue/config';
-import 'primevue/resources/themes/aura-dark-green/theme.css';
 import Aura from '@primevue/themes/aura';
-import "primeicons/primeicons.css";
+import 'primevue/resources/themes/aura-dark-green/theme.css';
+import 'primeicons/primeicons.css';
 
 // PrimeVue Components
 import Menubar from 'primevue/menubar';
 import Avatar from 'primevue/avatar';
 import Button from 'primevue/button';
-import Message from 'primevue/message';
 
 // PrimeVue Form
-import { Form } from '@primevue/forms';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
+import Message from 'primevue/message';
 
 // PrimeVue Services
 import ConfirmationService from "primevue/confirmationservice";
@@ -72,11 +71,10 @@ app.use(DialogService);
 
 app.component("Menubar", Menubar);
 app.component("Avatar", Avatar);
-app.component("Message", Message);
 
-app.component("Form", Form);
 app.component("InputText", InputText);
 app.component("Password", Password);
 app.component("Button", Button);
+app.component("Message", Message);
 
 app.mount('#app');
