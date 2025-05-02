@@ -46,7 +46,7 @@ function onFormSubmit() {
   <form @submit.prevent="onFormSubmit">
     <InputText v-model="username" type="text" :placeholder="$t('username')" fluid />
     <Password v-model="password" :placeholder="$t('password')" toggleMask fluid :feedback="false" />
-    <Message v-if="errors.length > 0" severity="error" size="small" variant="simple">
+    <Message v-if="errors.length > 0" severity="error" size="small" variant="simple" :closable="false">
       <ul class="my-0 px-4 flex flex-col gap-1">
         <li v-for="(error, index) of errors" :key="index">{{ error }}</li>
       </ul>

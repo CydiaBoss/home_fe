@@ -22,6 +22,8 @@ import Menubar from 'primevue/menubar';
 import Avatar from 'primevue/avatar';
 import Button from 'primevue/button';
 
+import Galleria from 'primevue/galleria';
+
 // PrimeVue Form
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
@@ -71,6 +73,8 @@ app.use(DialogService);
 
 app.component("Menubar", Menubar);
 app.component("Avatar", Avatar);
+
+app.component("Galleria", Galleria);
 
 app.component("InputText", InputText);
 app.component("Password", Password);
