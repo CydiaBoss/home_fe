@@ -1,70 +1,30 @@
 <script setup>
-import { ref } from 'vue';
-import { RouterView, useRouter } from 'vue-router';
-import { useI18n } from 'vue-i18n';
-import Toast from 'primevue/toast';
-
-import Menubar from 'primevue/menubar';
-import Avatar from 'primevue/avatar';
-
-const router = useRouter();
-
-const i18n = useI18n();
-
-const menus = ref([
-  {
-    label: i18n.t('home'),
-    icon: 'pi pi-home',
-    command: () => navigateTo("/"),
-  },
-  {
-    label: i18n.t('photos'),
-    icon: 'pi pi-images',
-    command: () => navigateTo("/photos/"),
-  }
-]);
-
-/**
- * Controls Router
- * 
- * @param path Nagivate to the given path
- */
-function navigateTo(path) {
-  router.push(path);
-}
+import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <Menubar class="menubar" :model="menus">
-    <template #start>
-      <img class="logo" src="/home.svg" @click="navigateTo('/')"/>
-    </template>
-    <template #end>
-      <Avatar class="user" icon="pi pi-user" shape="circle" @click="navigateTo('/login/')" />
-    </template>
-  </Menubar>
-  <RouterView/>
-  <Toast />
+  <div>
+    <a href="https://vite.dev" target="_blank">
+      <img src="/vite.svg" class="logo" alt="Vite logo" />
+    </a>
+    <a href="https://vuejs.org/" target="_blank">
+      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
+    </a>
+  </div>
+  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
 .logo {
-  height: 4em;
-  padding: 1em;
+  height: 6em;
+  padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 1em #646cffaa);
+  filter: drop-shadow(0 0 2em #646cffaa);
 }
-.menubar {
-  border-radius: 2em;
-  vertical-align: top;
-}
-.user {
-  margin-right: 1em;
-}
-.user:hover {
-  filter: drop-shadow(0 0 1em #646cffaa);
+.logo.vue:hover {
+  filter: drop-shadow(0 0 2em #42b883aa);
 }
 </style>
