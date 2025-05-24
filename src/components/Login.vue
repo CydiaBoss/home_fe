@@ -39,35 +39,50 @@ function onFormSubmit() {
 </script>
 
 <template>
-  <h2>{{ $t("loginTitle") }}</h2>
-  <p>
-    {{ $t("loginDescription") }}
-  </p>
-  <form @submit.prevent="onFormSubmit">
-    <InputText v-model="username" type="text" :placeholder="$t('username')" fluid />
-    <Password v-model="password" :placeholder="$t('password')" toggleMask fluid :feedback="false" />
-    <Message v-if="errors.length > 0" severity="error" size="small" variant="simple" :closable="false">
-      <ul class="my-0 px-4 flex flex-col gap-1">
-        <li v-for="(error, index) of errors" :key="index">{{ error }}</li>
-      </ul>
-    </Message>
-    <Button type="submit" severity="primary" :label="$t('submit')" />
-  </form>
+  <Card class="login" style="width: 25rem; overflow: hidden">
+      <template #header>
+        <img class="headerpic" src="\example.jpg">
+      </template>
+      <template #title>{{ $t("loginTitle") }}</template>
+      <template #subtitle>{{ $t("loginDescription") }}</template>
+      <template #content>
+        <div class="loginform">
+          <InputText v-model="username" type="text" :placeholder="$t('username')" fluid />
+          <Password v-model="password" :placeholder="$t('password')" toggleMask fluid :feedback="false" />
+          <Message v-if="errors.length > 0" severity="error" size="small" variant="simple" :closable="false">
+            <ul class="my-0 px-4 flex flex-col gap-1">
+              <li v-for="(error, index) of errors" :key="index">{{ error }}</li>
+            </ul>
+          </Message>
+        </div>
+      </template>
+      <template #footer>
+          <div class="flex gap-4 mt-1">
+            <Button severity="primary" :label="$t('submit')" />
+          </div>
+      </template>
+  </Card>
 </template>
 
 <style scoped>
-form {
-  width: 100vh;
+.login {
   margin: auto;
   display: flex;
   gap: 1em;
   flex-direction: column;
 }
-form div, input {
+.headerpic {
   width: 100%;
 }
+.loginform {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  gap: 0.5em;
+  flex-direction: column;
+}
 button {
-  width: 80vh;
+  width: 90%;
   margin: auto;
 }
 </style>

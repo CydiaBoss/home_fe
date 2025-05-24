@@ -23,6 +23,7 @@ import Avatar from 'primevue/avatar';
 import Button from 'primevue/button';
 
 import Galleria from 'primevue/galleria';
+import Card from 'primevue/card';
 
 // PrimeVue Form
 import InputText from 'primevue/inputtext';
@@ -80,5 +81,6 @@ app.component("InputText", InputText);
 app.component("Password", Password);
 app.component("Button", Button);
 app.component("Message", Message);
+app.component("Card", Card);
 
 app.mount('#app');

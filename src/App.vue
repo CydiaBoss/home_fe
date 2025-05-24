@@ -43,7 +43,7 @@ function navigateTo(path) {
       <Avatar class="user" icon="pi pi-user" shape="circle" @click="navigateTo('/login/')" />
     </template>
   </Menubar>
-  <RouterView/>
+  <RouterView class="routerview"/>
   <Toast />
 </template>
 
@@ -66,5 +66,11 @@ function navigateTo(path) {
 }
 .user:hover {
   filter: drop-shadow(0 0 1em #646cffaa);
+}
+.routerview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
 }
 </style>
