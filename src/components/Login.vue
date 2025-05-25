@@ -6,7 +6,7 @@ const username = ref("");
 const password = ref("");
 const errors = ref([]);
 
-function onFormSubmit() {
+function loginUser() {
   // Clear Errors
   errors.value = [];
 
@@ -41,7 +41,9 @@ function onFormSubmit() {
 <template>
   <Card class="login" style="width: 25rem; overflow: hidden">
       <template #header>
-        <img class="headerpic" src="\example.jpg">
+        <div class="headerwrapper">
+          <img class="headerpic" src="\example.jpg">
+        </div>
       </template>
       <template #title>{{ $t("loginTitle") }}</template>
       <template #subtitle>{{ $t("loginDescription") }}</template>
@@ -58,7 +60,7 @@ function onFormSubmit() {
       </template>
       <template #footer>
           <div class="flex gap-4 mt-1">
-            <Button severity="primary" :label="$t('submit')" />
+            <Button severity="primary" :label="$t('submit')" @click="loginUser" />
           </div>
       </template>
   </Card>
@@ -67,12 +69,21 @@ function onFormSubmit() {
 <style scoped>
 .login {
   margin: auto;
+  margin-top: 2em;
+  flex: 0 0 auto;
   display: flex;
   gap: 1em;
   flex-direction: column;
 }
+.headerwrapper {
+  display: flex;
+  overflow: hidden;
+  max-height: 20vh;
+  justify-content: center;
+}
 .headerpic {
   width: 100%;
+  object-fit: cover;
 }
 .loginform {
   width: 80%;

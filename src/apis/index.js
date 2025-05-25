@@ -18,7 +18,7 @@ function callBackend(endpoint, request) {
  * @returns {Promise<Object>} the JSON body with the user's token if successful
  */
 function loginUser(username, password) {
-	return callBackend("user/login", {
+	return callBackend("user/login/", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
