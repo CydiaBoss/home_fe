@@ -39,7 +39,7 @@ function loginUser() {
 </script>
 
 <template>
-  <Card class="login" style="width: 25rem; overflow: hidden">
+  <Card class="login" style="max-width: 25rem; overflow: hidden">
       <template #header>
         <div class="headerwrapper">
           <img class="headerpic" src="\example.jpg">
@@ -69,7 +69,6 @@ function loginUser() {
 <style scoped>
 .login {
   margin: auto;
-  margin-top: 3rem;
   flex: 0 1 auto;
 }
 .headerwrapper {

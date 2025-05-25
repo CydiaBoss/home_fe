@@ -73,7 +73,8 @@ function navigateTo(path) {
   height: 80vh;
   display: flex;
   flex-direction: column;
-  justify-items: center;
+  align-items: center;
+  justify-content: space-around;
   margin: auto;
 }
 </style>
