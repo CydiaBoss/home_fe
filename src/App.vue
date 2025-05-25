@@ -51,26 +51,26 @@ function navigateTo(path) {
 
 <style scoped>
 .logo {
-  height: 4em;
-  padding: 1em;
+  height: 4rem;
+  padding: 1rem;
   will-change: filter;
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 1em #646cffaa);
+  filter: drop-shadow(0 0 1rem #646cffaa);
 }
 .menubar {
-  border-radius: 2em;
+  border-radius: 2rem;
   vertical-align: top;
 }
 .user {
-  margin-right: 1em;
+  margin-right: 1rem;
 }
 .user:hover {
-  filter: drop-shadow(0 0 1em #646cffaa);
+  filter: drop-shadow(0 0 1rem #646cffaa);
 }
 .routerview {
-  height: stretch;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-items: center;

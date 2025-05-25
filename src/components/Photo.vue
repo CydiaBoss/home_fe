@@ -109,6 +109,6 @@
 <style scoped>
 .p-galleria img {
   border-style: solid;
-  border-radius: 1em;
+  border-radius: 1rem;
 }
 </style>

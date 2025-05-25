@@ -69,11 +69,8 @@ function loginUser() {
 <style scoped>
 .login {
   margin: auto;
-  margin-top: 2em;
-  flex: 0 0 auto;
-  display: flex;
-  gap: 1em;
-  flex-direction: column;
+  margin-top: 3rem;
+  flex: 0 1 auto;
 }
 .headerwrapper {
   display: flex;
@@ -89,7 +86,7 @@ function loginUser() {
   width: 80%;
   margin: auto;
   display: flex;
-  gap: 0.5em;
+  gap: 0.5rem;
   flex-direction: column;
 }
 button {
