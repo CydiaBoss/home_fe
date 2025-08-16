@@ -96,7 +96,7 @@
 
 <template>
   <h2>{{ $t("appTitle") }}</h2>
-  <Galleria :value="images" :numVisible="5" containerStyle="max-width: 100vh; margin: auto" circular autoPlay showItemNavigators showItemNavigatorsOnHover>
+  <Galleria :value="images" :numVisible="5" containerStyle="width: 80vh; max-height: 80vh; margin: auto" circular autoPlay showItemNavigators showItemNavigatorsOnHover>
     <template #item="slotProps">
         <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%" />
     </template>

@@ -51,8 +51,8 @@ function loginUser() {
         <div class="loginform">
           <InputText v-model="username" type="text" :placeholder="$t('username')" fluid />
           <Password v-model="password" :placeholder="$t('password')" toggleMask fluid :feedback="false" />
-          <Message v-if="errors.length > 0" severity="error" size="small" variant="simple" :closable="false">
-            <ul class="my-0 px-4 flex flex-col gap-1">
+          <Message v-if="errors.length > 0" severity="error" size="small" variant="simple" closable>
+            <ul class="error">
               <li v-for="(error, index) of errors" :key="index">{{ error }}</li>
             </ul>
           </Message>
@@ -87,6 +87,9 @@ function loginUser() {
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
+}
+.error {
+  font-size: small;
 }
 button {
   width: 90%;

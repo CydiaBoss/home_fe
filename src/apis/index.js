@@ -5,9 +5,25 @@
  * @param {RequestInfo} request the request body
  * @returns {Promise<Object>} the JSON body of the request
  */
-function callBackend(endpoint, request) {
+function callBackend(endpoint, request, redirect=true) {
 	return fetch(`${import.meta.env.VITE_BACKEND}/${endpoint}`, request).then((resp) => {
-		return resp.json();
+		return resp.json().then(json_resp => {
+			// Failure Check
+			if (json_resp.success == "fail" && redirect) {
+				// Look for cookie
+				let token = "";
+				for(let cookie of document.cookie.split("; ")) {
+					// Check for token
+					let cookie_parts = cookie.split("=");
+					if (cookie_parts[0] == "token") {
+						token = cookie_parts[1];
+						break;
+					}
+				}
+
+				// Check 
+			}
+		});
 	});
 }
 
