@@ -71,10 +71,10 @@ function navigateTo(path) {
   filter: drop-shadow(0 0 1rem #646cffaa);
 }
 .routerview {
-  height: 80vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   margin: auto;
+  padding: 1rem;
 }
 </style>

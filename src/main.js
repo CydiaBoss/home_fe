@@ -10,6 +10,7 @@ import App from './App.vue';
 import Home from './components/Home.vue';
 import Photo from './components/Photo.vue';
 import Login from './components/Login.vue';
+import UserProfile from './components/UserProfile.vue';
 
 // PrimeVue & PrimeIcon
 import PrimeVue from 'primevue/config';
@@ -58,6 +59,11 @@ const router = createRouter({
             component: Photo,
             props: { msg: "Wang HQ Database Photos" }
         },
+        {
+          path: '/profile',
+          name: 'userprofile',
+          component: UserProfile
+        }
     ],
 });
 

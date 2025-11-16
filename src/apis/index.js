@@ -1,3 +1,5 @@
+import user from './user';
+
 /**
  * Calls the backend
  * 
@@ -48,4 +50,5 @@ function loginUser(username, password) {
 
 export default {
 	loginUser,
+  ...user
 };
