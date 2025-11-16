@@ -1,3 +1,6 @@
+body {
+  margin: 0;
+}
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -31,12 +34,9 @@ a:hover {
 }
 
 #app {
-  width: 95%;
-  margin: 2em auto;
+  width: 100%;
   padding: 1rem;
   text-align: center;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 @media (prefers-color-scheme: light) {

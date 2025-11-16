@@ -81,12 +81,30 @@ const toggleTheme = () => {
 }
 
 onMounted(() => {
+    // Set initial theme based on browser preference
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    isDark.value = prefersDark;
+    const initialTheme = isDark.value ? 'aura-dark-green' : 'aura-light-green';
     const element = document.createElement('link');
     element.setAttribute('id', 'theme-link');
     element.setAttribute('rel', 'stylesheet');
-    element.setAttribute('href', '/themes/aura-light-green/theme.css');
+    element.setAttribute('href', `/themes/${initialTheme}/theme.css`);
     document.head.appendChild(element);
-})
+
+    // Set initial language based on browser preference
+    const browserLang = navigator.language;
+    if (browserLang.startsWith('fr')) {
+        locale.value = 'fr';
+    } else if (browserLang.startsWith('zh-CN')) {
+        locale.value = 'zh_cn';
+    } else if (browserLang.startsWith('zh-TW') || browserLang.startsWith('zh-HK')) {
+        locale.value = 'zh_tw';
+    } else if (browserLang.startsWith('zh')) {
+        locale.value = 'zh_cn';
+    } else {
+        locale.value = 'en';
+    }
+});
 
 /**
  * Controls Router
