@@ -11,17 +11,18 @@ import Home from './components/Home.vue';
 import Photo from './components/Photo.vue';
 import Login from './components/Login.vue';
 import UserProfile from './components/UserProfile.vue';
+import EditUserProfile from './components/EditUserProfile.vue';
 
 // PrimeVue & PrimeIcon
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
-import 'primevue/resources/themes/aura-dark-green/theme.css';
 import 'primeicons/primeicons.css';
 
 // PrimeVue Components
 import Menubar from 'primevue/menubar';
 import Avatar from 'primevue/avatar';
 import Button from 'primevue/button';
+import TieredMenu from 'primevue/tieredmenu';
 
 import Galleria from 'primevue/galleria';
 import Card from 'primevue/card';
@@ -30,6 +31,8 @@ import Card from 'primevue/card';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Message from 'primevue/message';
+import Textarea from 'primevue/textarea';
+import FileUpload from 'primevue/fileupload';
 
 // PrimeVue Services
 import ConfirmationService from "primevue/confirmationservice";
@@ -63,6 +66,11 @@ const router = createRouter({
           path: '/profile',
           name: 'userprofile',
           component: UserProfile
+        },
+        {
+          path: '/profile/edit',
+          name: 'edituserprofile',
+          component: EditUserProfile
         }
     ],
 });
@@ -80,6 +88,7 @@ app.use(DialogService);
 
 app.component("Menubar", Menubar);
 app.component("Avatar", Avatar);
+app.component("TieredMenu", TieredMenu);
 
 app.component("Galleria", Galleria);
 
@@ -88,5 +97,7 @@ app.component("Password", Password);
 app.component("Button", Button);
 app.component("Message", Message);
 app.component("Card", Card);
+app.component('Textarea', Textarea);
+app.component('FileUpload', FileUpload);
 
 app.mount('#app');

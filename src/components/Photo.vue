@@ -97,7 +97,7 @@
 <template>
   <div class="photo-container">
     <h2>{{ $t("appTitle") }}</h2>
-    <Galleria :value="images" :numVisible="5" containerStyle="width: 100%; max-height: 80vh" circular autoPlay showItemNavigators showItemNavigatorsOnHover>
+    <Galleria :value="images" :numVisible="5" containerStyle="width: 100%; min-height: 80vh" circular autoPlay showItemNavigators showItemNavigatorsOnHover>
       <template #item="slotProps">
           <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%; display: block;" />
       </template>
@@ -119,6 +119,12 @@
   border-radius: 0.5rem;
 }
 
+.photo-container :deep(.p-galleria-thumbnail-wrapper) {
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
 .photo-container :deep(.p-galleria img) {
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -131,6 +137,6 @@
 }
 
 .photo-container :deep(.p-galleria .p-galleria-item-container img) {
-    border-radius: 0.5rem;
+  border-radius: 0.5rem;
 }
 </style>
