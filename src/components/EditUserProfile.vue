@@ -1,66 +1,79 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import APIS from '../apis';
+import { ref } from 'vue';
 
-const router = useRouter();
-const user = ref({});
+import Card from 'primevue/card';
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+import Textarea from 'primevue/textarea';
+import Password from 'primevue/password';
+import FileUpload from 'primevue/fileupload';
+import Avatar from 'primevue/avatar';
 
-onMounted(() => {
-  // Mock API call to get user data
-  APIS.getUserProfile().then((response) => {
-    user.value = response.user;
-  });
+const user = ref({
+  name: 'John Doe',
+  email: 'john.doe@example.com',
+  bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  avatar: '/avatar.png',
+  password: ''
 });
 
-const saveProfile = () => {
-  // Mock API call to save user data
-  console.log('Saving profile:', user.value);
-  router.push('/profile');
+const onUpload = (event) => {
+  const file = event.files[0];
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    user.value.avatar = e.target.result;
+  };
+  reader.readAsDataURL(file);
 };
 
 const cancelEdit = () => {
-  router.push('/profile');
+  // Reset to original data or navigate away
+};
+
+const saveProfile = () => {
+  // Save the updated user profile
 };
 </script>
 
 <template>
   <div class="edit-profile-container">
     <Card class="edit-profile-card">
-      <template #title>{{ $t('editProfile') }}</template>
+      <template #title>
+        Edit Profile
+      </template>
       <template #content>
         <div class="form-grid">
           <div class="field">
-            <label for="name">{{ $t('name') }}</label>
+            <label>Profile Picture</label>
+            <div class="avatar-upload">
+              <Avatar :image="user.avatar" class="avatar-preview" shape="circle" />
+              <FileUpload mode="basic" name="avatar[]" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" chooseLabel="Browse" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="name">Name</label>
             <InputText id="name" v-model="user.name" />
           </div>
           <div class="field">
-            <label for="email">{{ $t('email') }}</label>
+            <label for="email">Email</label>
             <InputText id="email" v-model="user.email" />
           </div>
           <div class="field">
-            <label for="bio">{{ $t('bio') }}</label>
+            <label for="bio">Bio</label>
             <Textarea id="bio" v-model="user.bio" rows="5" />
           </div>
           <div class="field">
-            <label for="password">{{ $t('newPassword') }}</label>
+            <label for="password">New Password</label>
             <Password id="password" v-model="user.password" />
-          </div>
-          <div class="field">
-            <label for="avatar">{{ $t('avatar') }}</label>
-            <div class="avatar-upload">
-              <img class="avatar-preview" :src="user.avatar" />
-              <FileUpload mode="basic" name="avatar-upload" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :auto="true" :chooseLabel="$t('browse')" />
-            </div>
           </div>
         </div>
       </template>
       <template #footer>
-        <div class="p-d-flex p-jc-end">
-          <Button :label="$t('cancel')" icon="pi pi-times" @click="cancelEdit" class="p-button-secondary" />
-          <Button :label="$t('save')" icon="pi pi-check" @click="saveProfile" />
+        <div class="footer-buttons">
+          <Button label="Cancel" icon="pi pi-times" @click="cancelEdit" class="p-button-secondary" />
+          <Button label="Save" icon="pi pi-check" @click="saveProfile" style="margin-left: 1rem" />
         </div>
-      </template>
+      </template>    
     </Card>
   </div>
 </template>
@@ -94,6 +107,7 @@ const cancelEdit = () => {
   display: flex;
   align-items: center;
   gap: 1rem;
+  justify-content: center;
 }
 
 .avatar-preview {
@@ -101,5 +115,10 @@ const cancelEdit = () => {
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.footer-buttons {
+  display: flex;
+  justify-content: center;
 }
 </style>
