@@ -12,12 +12,12 @@ function loginUser() {
 
   // Validate Username
   if (username.value.trim() == "") {
-    errors.value.push("No username was given!");
+    errors.value.push("Username is required.");
   }
 
   // Validate Password
   if (password.value.trim() == "") {
-    errors.value.push("No password was given!");
+    errors.value.push("Password is required.");
   }
 
   // End if fail
@@ -29,7 +29,7 @@ function loginUser() {
   APIS.loginUser(username.value, password.value).then((resp) => {
     // On fail
     if (resp.success == "fail") {
-      errors.value.push("Incorrect username or password");
+      errors.value.push("Incorrect username or password.");
       return;
     }
     // On pass
@@ -39,60 +39,56 @@ function loginUser() {
 </script>
 
 <template>
-  <Card class="login" style="max-width: 25rem; overflow: hidden">
+  <Card class="login-card" style="max-width: 30rem; overflow: hidden">
       <template #header>
-        <div class="headerwrapper">
-          <img class="headerpic" src="\example.jpg">
+        <div class="header-wrapper">
+          <img class="header-pic" src="https://primefaces.org/cdn/primevue/images/galleria/galleria1.jpg">
         </div>
       </template>
       <template #title>{{ $t("loginTitle") }}</template>
       <template #subtitle>{{ $t("loginDescription") }}</template>
       <template #content>
-        <div class="loginform">
+        <div class="login-form">
           <InputText v-model="username" type="text" :placeholder="$t('username')" fluid />
           <Password v-model="password" :placeholder="$t('password')" toggleMask fluid :feedback="false" />
           <Message v-if="errors.length > 0" severity="error" size="small" variant="simple" closable>
-            <ul class="error">
+            <ul class="error-list">
               <li v-for="(error, index) of errors" :key="index">{{ error }}</li>
             </ul>
           </Message>
         </div>
       </template>
       <template #footer>
-          <div class="flex gap-4 mt-1">
-            <Button severity="primary" :label="$t('submit')" @click="loginUser" />
+          <div class="flex mt-1">
+            <Button severity="primary" :label="$t('submit')" @click="loginUser" style="width: 100%;"/>
           </div>
       </template>
   </Card>
 </template>
 
 <style scoped>
-.login {
+.login-card {
   margin: auto;
   flex: 0 1 auto;
 }
-.headerwrapper {
+.header-wrapper {
   display: flex;
   overflow: hidden;
-  max-height: 20vh;
+  max-height: 25vh;
   justify-content: center;
 }
-.headerpic {
+.header-pic {
   width: 100%;
   object-fit: cover;
 }
-.loginform {
-  width: 80%;
-  margin: auto;
+.login-form {
   display: flex;
-  gap: 0.5rem;
   flex-direction: column;
+  gap: 1rem;
 }
-.error {
+.error-list {
   font-size: small;
-}
-button {
-  width: 90%;
-  margin: auto;
+  margin: 0;
+  padding-left: 1.5rem;
 }
 </style>

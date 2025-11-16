@@ -95,20 +95,42 @@
 </script>
 
 <template>
-  <h2>{{ $t("appTitle") }}</h2>
-  <Galleria :value="images" :numVisible="5" containerStyle="width: 80vh; max-height: 80vh; margin: auto" circular autoPlay showItemNavigators showItemNavigatorsOnHover>
-    <template #item="slotProps">
-        <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%" />
-    </template>
-    <template #thumbnail="slotProps">
-        <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" />
-    </template>
-  </Galleria>
+  <div class="photo-container">
+    <h2>{{ $t("appTitle") }}</h2>
+    <Galleria :value="images" :numVisible="5" containerStyle="width: 100%; max-height: 80vh" circular autoPlay showItemNavigators showItemNavigatorsOnHover>
+      <template #item="slotProps">
+          <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%; display: block;" />
+      </template>
+      <template #thumbnail="slotProps">
+          <div class="p-galleria-thumbnail-item-content">
+            <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" style="display: block;"/>
+          </div>
+      </template>
+    </Galleria>
+  </div>
 </template>
 
 <style scoped>
-.p-galleria img {
-  border-style: solid;
-  border-radius: 1rem;
+.photo-container {
+  width: 100%;
+}
+
+.photo-container :deep(.p-galleria) {
+  border-radius: 0.5rem;
+}
+
+.photo-container :deep(.p-galleria img) {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.photo-container :deep(.p-galleria .p-galleria-thumbnail-item-content:hover img) {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.photo-container :deep(.p-galleria .p-galleria-item-container img) {
+    border-radius: 0.5rem;
 }
 </style>

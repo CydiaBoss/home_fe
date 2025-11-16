@@ -15,12 +15,12 @@ const menus = ref([
   {
     label: i18n.t('home'),
     icon: 'pi pi-home',
-    command: () => navigateTo("/"),
+    command: () => navigateTo("/")
   },
   {
     label: i18n.t('photos'),
     icon: 'pi pi-images',
-    command: () => navigateTo("/photos/"),
+    command: () => navigateTo("/photos/")
   }
 ]);
 
@@ -35,7 +35,7 @@ function navigateTo(path) {
 </script>
 
 <template>
-  <Menubar class="menubar" :model="menus">
+  <Menubar class="menubar" :model="menus" breakpoint="400px">
     <template #start>
       <img class="logo" src="/home.svg" @click="navigateTo('/')"/>
     </template>
@@ -62,6 +62,7 @@ function navigateTo(path) {
 .menubar {
   border-radius: 2rem;
   vertical-align: top;
+  margin-bottom: 1rem;
 }
 .user {
   margin-right: 1rem;
@@ -73,7 +74,6 @@ function navigateTo(path) {
   height: 80vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-around;
   margin: auto;
 }
