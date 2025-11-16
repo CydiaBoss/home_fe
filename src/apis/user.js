@@ -10,18 +10,21 @@ export default {
         },
         photos: [
           {
+            id: 1,
             itemImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria1.jpg',
             thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria1s.jpg',
             alt: 'Description for Image 1',
             title: 'Title 1'
           },
           {
+            id: 2,
             itemImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria2.jpg',
             thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria2s.jpg',
             alt: 'Description for Image 2',
             title: 'Title 2'
           },
           {
+            id: 3,
             itemImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria3.jpg',
             thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria3s.jpg',
             alt: 'Description for Image 3',
@@ -30,5 +33,8 @@ export default {
         ]
       });
     });
+  },
+  getUserPhotos() {
+    return this.getUserProfile();
   }
 };

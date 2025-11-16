@@ -52,7 +52,7 @@ const deletePhoto = (photoId) => {
         </div>
         <div class="photo-gallery">
           <div v-for="photo in photos" :key="photo.id" class="photo-item">
-            <img :src="photo.url" :alt="photo.title" />
+            <img :src="photo.itemImageSrc" :alt="photo.alt" />
             <div class="photo-actions">
               <Button icon="pi pi-pencil" @click="openEditDialog(photo)" />
               <Button icon="pi pi-trash" @click="deletePhoto(photo.id)" class="p-button-danger" />
