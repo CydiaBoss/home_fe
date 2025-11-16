@@ -104,14 +104,16 @@ function navigateTo(path) {
       <img class="logo" src="/home.svg" @click="navigateTo('/')"/>
     </template>
     <template #end>
-      <div class="theme-switcher">
-        <Button :icon="isDark ? 'pi pi-moon' : 'pi pi-sun'" @click="toggleTheme" />
+      <div class="end-components-container">
+        <div class="theme-switcher">
+          <Button :icon="isDark ? 'pi pi-moon' : 'pi pi-sun'" @click="toggleTheme" />
+        </div>
+        <div class="lang-switcher">
+          <Button type="button" icon="pi pi-globe" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
+          <TieredMenu ref="menu" id="overlay_menu" :model="languageMenu" popup />
+        </div>
+        <Avatar class="user" icon="pi pi-user" shape="circle" @click="navigateTo('/profile')" />
       </div>
-      <div class="lang-switcher">
-        <Button type="button" icon="pi pi-globe" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
-        <TieredMenu ref="menu" id="overlay_menu" :model="languageMenu" popup />
-      </div>
-      <Avatar class="user" icon="pi pi-user" shape="circle" @click="navigateTo('/profile')" />
     </template>
   </Menubar>
   <div class="routerview">
@@ -142,17 +144,14 @@ body {
   vertical-align: top;
   margin-bottom: 1rem;
 }
-.user {
-  margin-right: 1rem;
-}
 .user:hover {
   filter: drop-shadow(0 0 1rem #646cffaa);
 }
-.lang-switcher {
-    margin-right: 1rem;
-}
-.theme-switcher {
-    margin-right: 1rem;
+.end-components-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 1rem;
 }
 .routerview {
   min-height: 80vh;
