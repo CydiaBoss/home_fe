@@ -1,5 +1,7 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import APIS from '../apis';
 
 import Card from 'primevue/card';
 import Button from 'primevue/button';
@@ -9,12 +11,13 @@ import Password from 'primevue/password';
 import FileUpload from 'primevue/fileupload';
 import Avatar from 'primevue/avatar';
 
-const user = ref({
-  name: 'John Doe',
-  email: 'john.doe@example.com',
-  bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  avatar: '/avatar.png',
-  password: ''
+const user = ref({});
+const router = useRouter();
+
+onMounted(() => {
+  APIS.getUserProfile().then(data => {
+    user.value = data.user;
+  });
 });
 
 const onUpload = (event) => {
@@ -27,11 +30,13 @@ const onUpload = (event) => {
 };
 
 const cancelEdit = () => {
-  // Reset to original data or navigate away
+  router.push('/profile');
 };
 
 const saveProfile = () => {
-  // Save the updated user profile
+  // In a real app, you'd call an API to save the profile.
+  // For now, just navigate back to the profile page.
+  router.push('/profile');
 };
 </script>
 

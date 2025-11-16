@@ -3,6 +3,7 @@ import { ref, watch, onMounted } from 'vue';
 import { RouterView, useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import Toast from 'primevue/toast';
+import APIS from './apis';
 
 import Menubar from 'primevue/menubar';
 import Avatar from 'primevue/avatar';
@@ -16,12 +17,18 @@ const menu = ref();
 const userMenu = ref();
 const isDark = ref(false);
 const isLoggedIn = ref(false);
+const user = ref({});
 
 const menus = ref([]);
 
 const checkLoginStatus = () => {
   const token = document.cookie.split('; ').find(row => row.startsWith('token='));
   isLoggedIn.value = !!token;
+  if (isLoggedIn.value) {
+    APIS.getUserProfile().then(data => {
+      user.value = data.user;
+    });
+  }
 };
 
 const generateMenus = () => {
@@ -170,7 +177,8 @@ function navigateTo(path) {
           <Button type="button" icon="pi pi-globe" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
           <TieredMenu ref="menu" id="overlay_menu" :model="languageMenu" popup />
         </div>
-        <Avatar class="user" icon="pi pi-user" shape="circle" @click="handleAvatarClick" />
+        <Avatar v-if="isLoggedIn" class="user" :image="user.avatar" shape="circle" @click="handleAvatarClick" />
+        <Avatar v-else class="user" icon="pi pi-user" shape="circle" @click="handleAvatarClick" />
         <TieredMenu ref="userMenu" id="user_menu" :model="userMenuItems" popup />
       </div>
     </template>
