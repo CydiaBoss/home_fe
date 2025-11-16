@@ -28,6 +28,10 @@ const i18n = createI18n({
         myPhotos: "My Photos",
         browse: "Browse",
         language: "Language",
+        search: "Search",
+        uploadPhoto: "Upload Photo",
+        editPhoto: "Edit Photo",
+        title: "Title",
     },
     fr: {
 		appTitle: "Base de données de Wang HQ",
@@ -50,6 +54,10 @@ const i18n = createI18n({
         myPhotos: "Mes Photos",
         browse: "Parcourir",
         language: "Langue",
+        search: "Chercher",
+        uploadPhoto: "Télécharger une photo",
+        editPhoto: "Modifier la photo",
+        title: "Titre",
 	},
     zh_cn: {
 		appTitle: "王HQ数据库",
@@ -72,6 +80,10 @@ const i18n = createI18n({
         myPhotos: "我的照片",
         browse: "浏览",
         language: "语言",
+        search: "搜索",
+        uploadPhoto: "上传照片",
+        editPhoto: "编辑照片",
+        title: "标题",
 	},
     zh_tw: {
 		appTitle: "王HQ數據庫",
@@ -94,6 +106,10 @@ const i18n = createI18n({
         myPhotos: "我的照片",
         browse: "瀏覽",
         language: "語言",
+        search: "搜索",
+        uploadPhoto: "上傳照片",
+        editPhoto: "編輯照片",
+        title: "標題",
 	},
   }
 });

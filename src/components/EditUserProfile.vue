@@ -44,39 +44,39 @@ const saveProfile = () => {
   <div class="edit-profile-container">
     <Card class="edit-profile-card">
       <template #title>
-        Edit Profile
+        {{ $t('editProfile') }}
       </template>
       <template #content>
         <div class="form-grid">
           <div class="field">
-            <label>Profile Picture</label>
+            <label>{{ $t('avatar') }}</label>
             <div class="avatar-upload">
               <Avatar :image="user.avatar" class="avatar-preview" shape="circle" />
-              <FileUpload mode="basic" name="avatar[]" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" chooseLabel="Browse" />
+              <FileUpload mode="basic" name="avatar[]" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :chooseLabel="$t('browse')" />
             </div>
           </div>
           <div class="field">
-            <label for="name">Name</label>
+            <label for="name">{{ $t('name') }}</label>
             <InputText id="name" v-model="user.name" />
           </div>
           <div class="field">
-            <label for="email">Email</label>
+            <label for="email">{{ $t('email') }}</label>
             <InputText id="email" v-model="user.email" />
           </div>
           <div class="field">
-            <label for="bio">Bio</label>
+            <label for="bio">{{ $t('bio') }}</label>
             <Textarea id="bio" v-model="user.bio" rows="5" />
           </div>
           <div class="field">
-            <label for="password">New Password</label>
+            <label for="password">{{ $t('newPassword') }}</label>
             <Password id="password" v-model="user.password" />
           </div>
         </div>
       </template>
       <template #footer>
         <div class="footer-buttons">
-          <Button label="Cancel" icon="pi pi-times" @click="cancelEdit" class="p-button-secondary" />
-          <Button label="Save" icon="pi pi-check" @click="saveProfile" style="margin-left: 1rem" />
+          <Button :label="$t('cancel')" icon="pi pi-times" @click="cancelEdit" class="p-button-secondary" />
+          <Button :label="$t('save')" icon="pi pi-check" @click="saveProfile" style="margin-left: 1rem" />
         </div>
       </template>    
     </Card>

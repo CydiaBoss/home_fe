@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import APIS from '../apis';
 
 import Card from 'primevue/card';
@@ -11,11 +11,21 @@ import InputText from 'primevue/inputtext';
 const photos = ref([]);
 const displayEditDialog = ref(false);
 const editingPhoto = ref(null);
+const searchTerm = ref('');
 
 onMounted(() => {
   APIS.getUserPhotos().then((response) => {
     photos.value = response.photos;
   });
+});
+
+const filteredPhotos = computed(() => {
+  if (!searchTerm.value) {
+    return photos.value;
+  }
+  return photos.value.filter(photo =>
+    photo.title.toLowerCase().includes(searchTerm.value.toLowerCase())
+  );
 });
 
 const onUpload = (event) => {
@@ -44,14 +54,15 @@ const deletePhoto = (photoId) => {
   <div class="my-photos-container">
     <Card class="my-photos-card">
       <template #title>
-        My Photos
+        {{ $t('myPhotos') }}
       </template>
       <template #content>
-        <div class="upload-section">
-          <FileUpload mode="basic" name="photos[]" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" chooseLabel="Upload Photo" />
+        <div class="toolbar-section">
+          <FileUpload mode="basic" name="photos[]" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :chooseLabel="$t('uploadPhoto')" />
+          <InputText v-model="searchTerm" :placeholder="$t('search')" />
         </div>
         <div class="photo-gallery">
-          <div v-for="photo in photos" :key="photo.id" class="photo-item">
+          <div v-for="photo in filteredPhotos" :key="photo.id" class="photo-item">
             <img :src="photo.itemImageSrc" :alt="photo.alt" />
             <div class="photo-actions">
               <Button icon="pi pi-pencil" @click="openEditDialog(photo)" />
@@ -62,17 +73,17 @@ const deletePhoto = (photoId) => {
       </template>
     </Card>
 
-    <Dialog header="Edit Photo" v-model:visible="displayEditDialog" :modal="true">
+    <Dialog :header="$t('editPhoto')" v-model:visible="displayEditDialog" :modal="true">
       <div class="edit-photo-form">
         <div class="field">
-          <label for="title">Title</label>
+          <label for="title">{{ $t('title') }}</label>
           <InputText id="title" v-model="editingPhoto.title" />
         </div>
         <!-- Add other fields to edit here -->
       </div>
       <template #footer>
-        <Button label="Cancel" icon="pi pi-times" @click="displayEditDialog = false" class="p-button-text"/>
-        <Button label="Save" icon="pi pi-check" @click="savePhoto" />
+        <Button :label="$t('cancel')" icon="pi pi-times" @click="displayEditDialog = false" class="p-button-text"/>
+        <Button :label="$t('save')" icon="pi pi-check" @click="savePhoto" />
       </template>
     </Dialog>
   </div>
@@ -82,9 +93,11 @@ const deletePhoto = (photoId) => {
 .my-photos-card {
   width: 100%;
 }
-.upload-section {
+.toolbar-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 2rem;
-  text-align: center;
 }
 .photo-gallery {
   display: grid;
