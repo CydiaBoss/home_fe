@@ -24,6 +24,11 @@ const menus = ref([
     label: t('photos'),
     icon: 'pi pi-images',
     command: () => navigateTo("/photos/")
+  },
+  {
+    label: 'My Photos',
+    icon: 'pi pi-user',
+    command: () => navigateTo("/my-photos")
   }
 ]);
 
@@ -38,6 +43,11 @@ watch(locale, () => {
       label: t('photos'),
       icon: 'pi pi-images',
       command: () => navigateTo("/photos/")
+    },
+    {
+      label: 'My Photos',
+      icon: 'pi pi-user',
+      command: () => navigateTo("/my-photos")
     }
   ];
 });

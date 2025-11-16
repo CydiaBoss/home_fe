@@ -12,6 +12,7 @@ import Photo from './components/Photo.vue';
 import Login from './components/Login.vue';
 import UserProfile from './components/UserProfile.vue';
 import EditUserProfile from './components/EditUserProfile.vue';
+import MyPhotos from './components/MyPhotos.vue';
 
 // PrimeVue & PrimeIcon
 import PrimeVue from 'primevue/config';
@@ -71,6 +72,11 @@ const router = createRouter({
           path: '/profile/edit',
           name: 'edituserprofile',
           component: EditUserProfile
+        },
+        {
+          path: '/my-photos',
+          name: 'myphotos',
+          component: MyPhotos
         }
     ],
 });
