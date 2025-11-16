@@ -1,10 +1,12 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import APIS from '../apis';
 
 const username = ref("");
 const password = ref("");
 const errors = ref([]);
+const router = useRouter();
 
 function loginUser() {
   // Clear Errors
@@ -33,7 +35,8 @@ function loginUser() {
       return;
     }
     // On pass
-    // TODO login user
+    document.cookie = `token=${resp.token}; path=/`;
+    router.push('/profile');
   });
 }
 </script>

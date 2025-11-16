@@ -5,6 +5,10 @@ import './style.css';
 // Localization
 import i18n from './i18n'
 
+// Apis
+import apis from './apis';
+apis.setTestMode(true);
+
 // Personal Views
 import App from './App.vue';
 import Home from './components/Home.vue';

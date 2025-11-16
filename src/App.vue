@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import { RouterView, useRouter } from 'vue-router';
+import { RouterView, useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import Toast from 'primevue/toast';
 
@@ -10,30 +10,22 @@ import Button from 'primevue/button';
 import TieredMenu from 'primevue/tieredmenu';
 
 const router = useRouter();
+const route = useRoute();
 const { t, locale } = useI18n();
 const menu = ref();
+const userMenu = ref();
 const isDark = ref(false);
+const isLoggedIn = ref(false);
 
-const menus = ref([
-  {
-    label: t('home'),
-    icon: 'pi pi-home',
-    command: () => navigateTo("/")
-  },
-  {
-    label: t('photos'),
-    icon: 'pi pi-images',
-    command: () => navigateTo("/photos/")
-  },
-  {
-    label: 'My Photos',
-    icon: 'pi pi-user',
-    command: () => navigateTo("/my-photos")
-  }
-]);
+const menus = ref([]);
 
-watch(locale, () => {
-  menus.value = [
+const checkLoginStatus = () => {
+  const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+  isLoggedIn.value = !!token;
+};
+
+const generateMenus = () => {
+  const newMenus = [
     {
       label: t('home'),
       icon: 'pi pi-home',
@@ -43,14 +35,21 @@ watch(locale, () => {
       label: t('photos'),
       icon: 'pi pi-images',
       command: () => navigateTo("/photos/")
-    },
-    {
+    }
+  ];
+  if (isLoggedIn.value) {
+    newMenus.push({
       label: 'My Photos',
       icon: 'pi pi-user',
       command: () => navigateTo("/my-photos")
-    }
-  ];
-});
+    });
+  }
+  menus.value = newMenus;
+};
+
+watch(locale, generateMenus);
+watch(isLoggedIn, generateMenus);
+watch(route, checkLoginStatus);
 
 const languageMenu = ref([
     {
@@ -79,8 +78,37 @@ const languageMenu = ref([
     }
 ]);
 
+const userMenuItems = ref([
+    {
+        label: 'Profile',
+        icon: 'pi pi-user',
+        command: () => navigateTo('/profile')
+    },
+    {
+        label: 'Logout',
+        icon: 'pi pi-sign-out',
+        command: () => {
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            checkLoginStatus();
+            router.push('/login');
+        }
+    }
+]);
+
 const toggle = (event) => {
     menu.value.toggle(event);
+};
+
+const toggleUserMenu = (event) => {
+    userMenu.value.toggle(event);
+};
+
+const handleAvatarClick = (event) => {
+  if (isLoggedIn.value) {
+    toggleUserMenu(event);
+  } else {
+    navigateTo('/login');
+  }
 };
 
 const toggleTheme = () => {
@@ -91,6 +119,8 @@ const toggleTheme = () => {
 }
 
 onMounted(() => {
+    checkLoginStatus();
+    generateMenus();
     // Set initial theme based on browser preference
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     isDark.value = prefersDark;
@@ -140,7 +170,8 @@ function navigateTo(path) {
           <Button type="button" icon="pi pi-globe" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
           <TieredMenu ref="menu" id="overlay_menu" :model="languageMenu" popup />
         </div>
-        <Avatar class="user" icon="pi pi-user" shape="circle" @click="navigateTo('/profile')" />
+        <Avatar class="user" icon="pi pi-user" shape="circle" @click="handleAvatarClick" />
+        <TieredMenu ref="userMenu" id="user_menu" :model="userMenuItems" popup />
       </div>
     </template>
   </Menubar>

@@ -1,5 +1,7 @@
 import user from './user';
 
+let testMode = false;
+
 /**
  * Calls the backend
  * 
@@ -8,6 +10,22 @@ import user from './user';
  * @returns {Promise<Object>} the JSON body of the request
  */
 function callBackend(endpoint, request, redirect=true) {
+	if (testMode) {
+		return new Promise((resolve) => {
+			switch(endpoint) {
+				case "user/login/":
+					resolve({
+						success: "ok",
+						token: "test-token"
+					});
+					break;
+				default:
+					resolve(user.getUserProfile());
+					break;
+			}
+		});
+	}
+
 	return fetch(`${import.meta.env.VITE_BACKEND}/${endpoint}`, request).then((resp) => {
 		return resp.json().then(json_resp => {
 			// Failure Check
@@ -48,7 +66,12 @@ function loginUser(username, password) {
 	});
 }
 
+function setTestMode(enabled) {
+	testMode = enabled;
+}
+
 export default {
 	loginUser,
+	setTestMode,
   ...user
 };
