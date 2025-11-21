@@ -37,19 +37,20 @@ const generateMenus = () => {
       label: t('home'),
       icon: 'pi pi-home',
       command: () => navigateTo("/")
-    },
-    {
-      label: t('photos'),
-      icon: 'pi pi-images',
-      command: () => navigateTo("/photos/")
     }
   ];
   if (isLoggedIn.value) {
-    newMenus.push({
-      label: 'My Photos',
-      icon: 'pi pi-user',
-      command: () => navigateTo("/my-photos")
-    });
+    newMenus.push(
+      {
+        label: t('photos'),
+        icon: 'pi pi-images',
+        command: () => navigateTo("/photos")
+      },{
+        label: t('myPhotos') ,
+        icon: 'pi pi-user',
+        command: () => navigateTo("/my-photos")
+      }
+    );
   }
   menus.value = newMenus;
 };
