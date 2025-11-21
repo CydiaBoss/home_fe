@@ -164,7 +164,7 @@ function navigateTo(path) {
 </script>
 
 <template>
-  <Menubar class="menubar" :model="menus" breakpoint="400px">
+  <Menubar class="menubar" :model="menus" breakpoint="200px">
     <template #start>
       <img class="logo" src="/home.svg" @click="navigateTo('/')"/>
     </template>
@@ -217,7 +217,7 @@ body {
 .end-components-container {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   margin-right: 1rem;
 }
 .routerview {

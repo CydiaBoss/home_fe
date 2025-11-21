@@ -19,6 +19,12 @@ const navigateTo = (path) => {
   router.push(path);
 };
 
+const goToPhoto = (photo) => {
+  if (photo && photo.id) {
+    router.push({ name: 'singlephoto', params: { id: photo.id } });
+  }
+};
+
 </script>
 
 <template>
@@ -41,7 +47,7 @@ const navigateTo = (path) => {
       <h2>{{ $t('myPhotos') }}</h2>
       <Galleria :value="photos" :numVisible="5" containerStyle="width: 100%" :showThumbnails="false" :showIndicators="true" :circular="true" :autoPlay="true" :transitionInterval="3000">
         <template #item="slotProps">
-          <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%; display: block;" />
+          <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%; display: block; cursor: pointer;" @click="goToPhoto(slotProps.item)" />
         </template>
       </Galleria>
     </div>

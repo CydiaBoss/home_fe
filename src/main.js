@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { createApp, watch } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import './style.css';
 
@@ -17,6 +17,7 @@ import Login from './components/Login.vue';
 import UserProfile from './components/UserProfile.vue';
 import EditUserProfile from './components/EditUserProfile.vue';
 import MyPhotos from './components/MyPhotos.vue';
+import SinglePhoto from './components/SinglePhoto.vue';
 
 // PrimeVue & PrimeIcon
 import PrimeVue from 'primevue/config';
@@ -48,6 +49,16 @@ const app = createApp(App);
 
 app.use(i18n);
 
+// Update title when locale changes
+watch(
+  () => i18n.global.locale.value,
+  () => {
+    document.title = i18n.global.t('appTitle');
+  },
+  { immediate: true } // Set title on initial load
+);
+
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -66,6 +77,11 @@ const router = createRouter({
             name: "photos",
             component: Photo,
             props: { msg: "Wang HQ Database Photos" }
+        },
+        {
+            path: '/photos/:id',
+            name: 'singlephoto',
+            component: SinglePhoto
         },
         {
           path: '/profile',
