@@ -55,6 +55,7 @@ const saveProfile = () => {
               <FileUpload mode="basic" name="avatar[]" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :chooseLabel="$t('browse')" />
             </div>
           </div>
+          <div class="field"><!-- Buffer --></div>
           <div class="field">
             <label for="name">{{ $t('name') }}</label>
             <InputText id="name" v-model="user.name" />
@@ -88,7 +89,7 @@ const saveProfile = () => {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .edit-profile-card {
@@ -98,7 +99,7 @@ const saveProfile = () => {
 
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
 }
 

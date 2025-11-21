@@ -62,13 +62,20 @@ const deletePhoto = (photoId) => {
           <InputText v-model="searchTerm" :placeholder="$t('search')" />
         </div>
         <div class="photo-gallery">
-          <div v-for="photo in filteredPhotos" :key="photo.id" class="photo-item">
-            <img :src="photo.itemImageSrc" :alt="photo.alt" />
-            <div class="photo-actions">
-              <Button icon="pi pi-pencil" @click="openEditDialog(photo)" />
-              <Button icon="pi pi-trash" @click="deletePhoto(photo.id)" class="p-button-danger" />
-            </div>
-          </div>
+          <Card v-for="photo in filteredPhotos" :key="photo.id" class="photo-item">
+            <template #header>
+                <img :src="photo.itemImageSrc" :alt="photo.alt" style="width: 100%; display: block;" />
+            </template>
+            <template #content>
+                <div class="photo-details">
+                    <span class="photo-title">{{ photo.title }}</span>
+                    <div class="photo-actions">
+                        <Button icon="pi pi-pencil" class="p-button-sm" @click="openEditDialog(photo)" />
+                        <Button icon="pi pi-trash" class="p-button-sm p-button-danger" @click="deletePhoto(photo.id)" />
+                    </div>
+                </div>
+            </template>
+          </Card>
         </div>
       </template>
     </Card>
@@ -101,24 +108,53 @@ const deletePhoto = (photoId) => {
 }
 .photo-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
+
 .photo-item {
-  position: relative;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
 }
-.photo-item img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+
+.photo-item:hover {
+  transform: scale(1.05);
 }
+
+.photo-item :deep(.p-card-body) {
+    padding: 0;
+}
+
+.photo-item :deep(.p-card-content) {
+    padding: 0.75rem;
+}
+
+.photo-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.photo-title {
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
 .photo-actions {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
   display: flex;
   gap: 0.5rem;
 }
+
+.photo-actions .p-button {
+    transition: filter 0.2s ease-in-out;
+}
+
+.photo-actions .p-button:hover {
+    filter: drop-shadow(0 0 0.5rem #646cffaa);
+}
+
 .edit-photo-form .field {
   margin-bottom: 1rem;
 }

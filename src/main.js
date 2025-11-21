@@ -12,7 +12,7 @@ apis.setTestMode(true);
 // Personal Views
 import App from './App.vue';
 import Home from './components/Home.vue';
-import Photo from './components/Photo.vue';
+import Gallery from './components/Gallery.vue';
 import Login from './components/Login.vue';
 import UserProfile from './components/UserProfile.vue';
 import EditUserProfile from './components/EditUserProfile.vue';
@@ -75,8 +75,7 @@ const router = createRouter({
         {
             path: "/photos/",
             name: "photos",
-            component: Photo,
-            props: { msg: "Wang HQ Database Photos" }
+            component: Gallery
         },
         {
             path: '/photos/:id',

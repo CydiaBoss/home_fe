@@ -202,7 +202,7 @@ body {
   height: 4rem;
   padding: 1rem;
   will-change: filter;
-  transition: filter 300ms;
+  transition: filter 0.2s;
 }
 .logo:hover {
   filter: drop-shadow(0 0 1rem #646cffaa);
@@ -211,15 +211,21 @@ body {
   border-radius: 2rem;
   vertical-align: top;
   margin-bottom: 1rem;
-}
-.user:hover {
-  filter: drop-shadow(0 0 1rem #646cffaa);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 0;
 }
 .end-components-container {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-right: 1rem;
+}
+.end-components-container > * {
+  transition: transform 0.2s ease-in-out;
+}
+.end-components-container > *:hover {
+  filter: drop-shadow(0 0 0.25rem #646cffaa);
+  transform: scale(1.1);
 }
 .routerview {
   min-height: 80vh;

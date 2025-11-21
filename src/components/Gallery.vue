@@ -92,7 +92,6 @@ const goToPhoto = (photo) => {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   transition: transform 0.2s ease-in-out;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2); 
 }
 .masonry-item .p-card:hover {
   transform: scale(1.05);
@@ -109,12 +108,18 @@ const goToPhoto = (photo) => {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.25);
     color: #fff;
-    padding: 0.75rem;
+    padding: 0.5rem;
 }
 .card-title {
     font-size: 1rem;
     font-weight: bold;
+    transform: scale(0.75) translateX(-35%);
+    transform-origin: left;
+    transition: transform 0.2s ease-in-out;
+}
+.masonry-item .p-card:hover .card-title {
+    transform: scale(1) translateX(0);
 }
 </style>
