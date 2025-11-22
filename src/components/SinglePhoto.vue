@@ -2,7 +2,10 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import APIS from '../apis';
+import Tag from 'primevue/tag';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const route = useRoute();
 const photo = ref({});
 const comments = ref([]);
@@ -21,7 +24,7 @@ const addComment = () => {
     // Mock API call to add comment
     comments.value.push({
         id: comments.value.length + 1,
-        author: 'Current User', // Replace with actual user
+        author: t('currentUser'), // Replace with actual user
         text: newComment.value,
         createdAt: new Date().toLocaleString()
     });
@@ -42,10 +45,10 @@ const sharePhoto = () => {
       text: photo.value.alt,
       url: window.location.href,
     })
-    .then(() => console.log('Successful share'))
-    .catch((error) => console.log('Error sharing', error));
+    .then(() => console.log(t('successfulShare')))
+    .catch((error) => console.log(t('errorSharing'), error));
   } else {
-    alert('Share functionality not supported in your browser.');
+    alert(t('shareNotSupported'));
   }
 };
 </script>
@@ -59,6 +62,9 @@ const sharePhoto = () => {
         <template #title>{{ photo.title }}</template>
         <template #content>
             <p>{{ photo.alt }}</p>
+            <div class="tags-section">
+                <Tag v-for="tag in photo.tags" :key="tag" :value="tag"></Tag>
+            </div>
         </template>
         <template #footer>
             <div class="actions">
@@ -69,15 +75,15 @@ const sharePhoto = () => {
     </Card>
 
     <div class="comments-section">
-      <h3>Comments</h3>
+      <h3>{{ $t('comments') }}</h3>
       <div v-for="comment in comments" :key="comment.id" class="comment">
         <strong>{{ comment.author }}</strong>
         <p>{{ comment.text }}</p>
         <span>{{ comment.createdAt }}</span>
       </div>
       <div class="add-comment">
-        <Textarea v-model="newComment" rows="3" placeholder="Add a comment..." />
-        <Button label="Comment" @click="addComment" />
+        <Textarea v-model="newComment" rows="3" :placeholder="$t('addComment')" />
+        <Button :label="$t('comment')" @click="addComment" />
       </div>
     </div>
   </div>
@@ -98,6 +104,11 @@ const sharePhoto = () => {
 .actions {
     display: flex;
     gap: 1rem;
+}
+.tags-section {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
 }
 .comments-section {
     max-width: 60rem;

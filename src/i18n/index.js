@@ -1,117 +1,18 @@
-import { createI18n } from 'vue-i18n'
+import { createI18n } from 'vue-i18n';
+
+const messages = {};
+const languageFiles = import.meta.glob('./*.json', { eager: true });
+
+for (const path in languageFiles) {
+  const locale = path.replace(/(\.\/|\.json)/g, '');
+  messages[locale] = languageFiles[path].default;
+}
 
 const i18n = createI18n({
-  // Disable legacy for Vue3
   legacy: false,
-  // default locale
-  locale: 'en',
-  // translations
-  messages: {
-    en: {
-		appTitle: "Wang HQ Database",
-		homeDescription: "Welcome to the Wang HQ Database. You can view all of the house's files from photos to documents.",
-		loginTitle: "Login",
-		loginDescription: "Please log in to view all of the house's files. If you don't have an account, please contact the administrator.",
-		username: "Username",
-		password: "Password",
-		home: "Home",
-		photos: "Gallery",
-		submit: "Submit",
-        editProfile: "Edit Profile",
-        name: "Name",
-        email: "Email",
-        bio: "Bio",
-        newPassword: "New Password",
-        avatar: "Avatar",
-        cancel: "Cancel",
-        save: "Save",
-        myPhotos: "My Photos",
-        browse: "Browse",
-        language: "Language",
-        search: "Search",
-        uploadPhoto: "Upload Photo",
-        editPhoto: "Edit Photo",
-        title: "Title",
-    },
-    fr: {
-		appTitle: "Base de données de Wang HQ",
-		homeDescription: "Bienvenue dans la base de données de Wang HQ. Vous pouvez consulter tous les fichiers de la maison, des photos aux documents.",
-		loginTitle: "S'identifier",
-		loginDescription: "Veuillez vous connecter pour consulter tous les fichiers de la maison. Si vous n'avez pas de compte, veuillez contacter l'administrateur.",
-		username: "Nom d'utilisateur",
-		password: "Mot de passe",
-		home: "Accueil",
-		photos: "Galerie",
-		submit: "Soumettre",
-        editProfile: "Editer le profil",
-        name: "Nom",
-        email: "Email",
-        bio: "Bio",
-        newPassword: "Nouveau mot de passe",
-        avatar: "Avatar",
-        cancel: "Annuler",
-        save: "Sauvegarder",
-        myPhotos: "Mes Photos",
-        browse: "Parcourir",
-        language: "Langue",
-        search: "Chercher",
-        uploadPhoto: "Télécharger une photo",
-        editPhoto: "Modifier la photo",
-        title: "Titre",
-	},
-    zh_cn: {
-		appTitle: "王HQ数据库",
-		homeDescription: "欢迎来到王HQ数据库。您可以查看房屋的所有文件，从照片到文档。",
-		loginTitle: "登录",
-		loginDescription: "请登录以查看房屋的所有文件。如果您没有帐户，请联系管理员。",
-		username: "用户名",
-		password: "密码",
-		home: "家",
-		photos: "画廊",
-		submit: "提交",
-        editProfile: "编辑个人资料",
-        name: "姓名",
-        email: "电子邮件",
-        bio: "个人简介",
-        newPassword: "新密码",
-        avatar: "头像",
-        cancel: "取消",
-        save: "保存",
-        myPhotos: "我的照片",
-        browse: "浏览",
-        language: "语言",
-        search: "搜索",
-        uploadPhoto: "上传照片",
-        editPhoto: "编辑照片",
-        title: "标题",
-	},
-    zh_tw: {
-		appTitle: "王HQ數據庫",
-		homeDescription: "歡迎來到王HQ數據庫。您可以查看房屋的所有文件，從照片到文檔。",
-		loginTitle: "登錄",
-		loginDescription: "請登錄以查看房屋的所有文件。如果您沒有帳戶，請聯繫管理員。",
-		username: "用戶名",
-		password: "密碼",
-		home: "家",
-		photos: "畫廊",
-		submit: "提交",
-        editProfile: "編輯個人資料",
-        name: "姓名",
-        email: "電子郵件",
-        bio: "個人簡介",
-        newPassword: "新密碼",
-        avatar: "頭像",
-        cancel: "取消",
-        save: "保存",
-        myPhotos: "我的照片",
-        browse: "瀏覽",
-        language: "語言",
-        search: "搜索",
-        uploadPhoto: "上傳照片",
-        editPhoto: "編輯照片",
-        title: "標題",
-	},
-  }
+  locale: 'en', // set locale
+  fallbackLocale: 'en', // set fallback locale
+  messages, // set locale messages
 });
 
-export default i18n
+export default i18n;

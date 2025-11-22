@@ -14,7 +14,8 @@ export default {
             itemImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria1.jpg',
             thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria1s.jpg',
             alt: 'Description for Image 1',
-            title: 'Title 1'
+            title: 'Title 1',
+            tags: ['nature', 'water', 'mountain']
           },
           {
             id: 2,
@@ -49,7 +50,8 @@ export default {
             isFavorited: false,
             comments: [
                 { id: 1, author: 'Jane Doe', text: 'Great photo!', createdAt: '2023-10-27T10:00:00Z' }
-            ]
+            ],
+            tags: ['nature', 'water', 'mountain']
           },
           {
             id: 2,

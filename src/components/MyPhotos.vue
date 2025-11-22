@@ -7,6 +7,8 @@ import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
+import Textarea from 'primevue/textarea';
+import Chips from 'primevue/chips';
 
 const photos = ref([]);
 const displayEditDialog = ref(false);
@@ -82,11 +84,23 @@ const deletePhoto = (photoId) => {
 
     <Dialog :header="$t('editPhoto')" v-model:visible="displayEditDialog" :modal="true">
       <div class="edit-photo-form">
-        <div class="field">
-          <label for="title">{{ $t('title') }}</label>
-          <InputText id="title" v-model="editingPhoto.title" />
+        <div class="edit-photo-image">
+          <img :src="editingPhoto.itemImageSrc" :alt="editingPhoto.alt" />
         </div>
-        <!-- Add other fields to edit here -->
+        <div class="edit-photo-fields">
+          <div class="field">
+            <label for="title">{{ $t('title') }}</label>
+            <InputText id="title" v-model="editingPhoto.title" />
+          </div>
+          <div class="field">
+            <label for="description">{{ $t('description') }}</label>
+            <Textarea id="description" v-model="editingPhoto.description" rows="3" />
+          </div>
+          <div class="field">
+            <label for="tags">{{ $t('tags') }}</label>
+            <Chips id="tags" v-model="editingPhoto.tags" />
+          </div>
+        </div>
       </div>
       <template #footer>
         <Button :label="$t('cancel')" icon="pi pi-times" @click="displayEditDialog = false" class="p-button-text"/>
@@ -108,7 +122,7 @@ const deletePhoto = (photoId) => {
 }
 .photo-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1.5rem;
 }
 
@@ -155,7 +169,40 @@ const deletePhoto = (photoId) => {
     filter: drop-shadow(0 0 0.5rem #646cffaa);
 }
 
+.edit-photo-form {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.edit-photo-image {
+  flex: 1;
+}
+
+.edit-photo-image img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.edit-photo-fields {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .edit-photo-form .field {
-  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.edit-photo-form .field :deep(input, textarea, .p-chips) {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .edit-photo-form {
+    flex-direction: column;
+  }
 }
 </style>

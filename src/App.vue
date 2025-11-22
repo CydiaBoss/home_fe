@@ -1,9 +1,10 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 import { RouterView, useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import Toast from 'primevue/toast';
 import APIS from './apis';
+import i18n from './i18n';
 
 import Menubar from 'primevue/menubar';
 import Avatar from 'primevue/avatar';
@@ -22,7 +23,7 @@ const user = ref({});
 const menus = ref([]);
 
 const checkLoginStatus = () => {
-  const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+  const token = document.cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1];
   isLoggedIn.value = !!token;
   if (isLoggedIn.value) {
     APIS.getUserProfile().then(data => {
@@ -55,53 +56,45 @@ const generateMenus = () => {
   menus.value = newMenus;
 };
 
-watch(locale, generateMenus);
-watch(isLoggedIn, generateMenus);
+watch(locale, () => {
+    generateMenus();
+    generateUserMenuItems();
+});
+watch(isLoggedIn, () => {
+    generateMenus();
+    generateUserMenuItems();
+});
 watch(route, checkLoginStatus);
 
-const languageMenu = ref([
-    {
-        label: 'English',
-        command: () => {
-            locale.value = 'en';
-        }
-    },
-    {
-        label: 'Français',
-        command: () => {
-            locale.value = 'fr';
-        }
-    },
-    {
-        label: '简体中文',
-        command: () => {
-            locale.value = 'zh_cn';
-        }
-    },
-    {
-        label: '繁體中文',
-        command: () => {
-            locale.value = 'zh_tw';
-        }
+const languageMenu = computed(() => {
+  return i18n.global.availableLocales.map(loc => ({
+    label: i18n.global.messages.value[loc].languageName,
+    command: () => {
+      locale.value = loc;
     }
-]);
+  }));
+});
 
-const userMenuItems = ref([
-    {
-        label: 'Profile',
-        icon: 'pi pi-user',
-        command: () => navigateTo('/profile')
-    },
-    {
-        label: 'Logout',
-        icon: 'pi pi-sign-out',
-        command: () => {
-            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            checkLoginStatus();
-            router.push('/login');
+const userMenuItems = ref([]);
+
+const generateUserMenuItems = () => {
+    userMenuItems.value = [
+        {
+            label: t('profile'),
+            icon: 'pi pi-user',
+            command: () => navigateTo('/profile')
+        },
+        {
+            label: t('logout'),
+            icon: 'pi pi-sign-out',
+            command: () => {
+                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                checkLoginStatus();
+                router.push('/login');
+            }
         }
-    }
-]);
+    ];
+}
 
 const toggle = (event) => {
     menu.value.toggle(event);
@@ -129,6 +122,7 @@ const toggleTheme = () => {
 onMounted(() => {
     checkLoginStatus();
     generateMenus();
+    generateUserMenuItems();
     // Set initial theme based on browser preference
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     isDark.value = prefersDark;
@@ -141,8 +135,8 @@ onMounted(() => {
 
     // Set initial language based on browser preference
     const browserLang = navigator.language;
-    if (browserLang.startsWith('fr')) {
-        locale.value = 'fr';
+    if (i18n.global.availableLocales.includes(browserLang)) {
+        locale.value = browserLang;
     } else if (browserLang.startsWith('zh-CN')) {
         locale.value = 'zh_cn';
     } else if (browserLang.startsWith('zh-TW') || browserLang.startsWith('zh-HK')) {
@@ -165,7 +159,7 @@ function navigateTo(path) {
 </script>
 
 <template>
-  <Menubar class="menubar" :model="menus" breakpoint="200px">
+  <Menubar class="menubar" :model="menus" breakpoint="600px">
     <template #start>
       <img class="logo" src="/home.svg" @click="navigateTo('/')"/>
     </template>
@@ -194,6 +188,12 @@ function navigateTo(path) {
 body {
   background-color: var(--surface-ground);
   color: var(--text-color);
+}
+
+.p-menubar-root-list {
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-top: 0.5rem;
 }
 </style>
 

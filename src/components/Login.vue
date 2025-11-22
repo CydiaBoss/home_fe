@@ -14,12 +14,12 @@ function loginUser() {
 
   // Validate Username
   if (username.value.trim() == "") {
-    errors.value.push("Username is required.");
+    errors.value.push("usernameRequired");
   }
 
   // Validate Password
   if (password.value.trim() == "") {
-    errors.value.push("Password is required.");
+    errors.value.push("passwordRequired");
   }
 
   // End if fail
@@ -31,7 +31,7 @@ function loginUser() {
   APIS.loginUser(username.value, password.value).then((resp) => {
     // On fail
     if (resp.success == "fail") {
-      errors.value.push("Incorrect username or password.");
+      errors.value.push("incorrectCredentials");
       return;
     }
     // On pass
@@ -56,7 +56,7 @@ function loginUser() {
           <Password v-model="password" :placeholder="$t('password')" toggleMask fluid :feedback="false" />
           <Message v-if="errors.length > 0" severity="error" size="small" variant="simple" closable>
             <ul class="error-list">
-              <li v-for="(error, index) of errors" :key="index">{{ error }}</li>
+              <li v-for="(error, index) of errors" :key="index">{{ $t(error) }}</li>
             </ul>
           </Message>
         </div>

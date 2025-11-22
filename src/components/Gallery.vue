@@ -63,7 +63,7 @@ const goToPhoto = (photo) => {
             </Card>
           </div>
         </div>
-        <div v-if="loading" class="loading">Loading...</div>
+        <div v-if="loading" class="loading">{{ $t('loading') }}</div>
       </template>
     </Card>
     
@@ -121,5 +121,11 @@ const goToPhoto = (photo) => {
 }
 .masonry-item .p-card:hover .card-title {
     transform: scale(1) translateX(0);
+}
+
+@media (max-width: 768px) {
+  .masonry {
+    column-count: 2;
+  }
 }
 </style>

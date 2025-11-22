@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import './style.css';
 
 // Localization
-import i18n from './i18n'
+import i18n from './i18n/index.js';
 
 // Apis
 import apis from './apis';
