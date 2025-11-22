@@ -64,7 +64,7 @@ const goToMedia = (item) => {
               <template #header>
                 <div class="card-header-container">
                   <img v-if="!isVideo(item)" :src="item.itemImageSrc" :alt="item.alt" style="width: 100%; display: block; cursor: pointer;" />
-                  <video v-else :src="item.itemImageSrc" style="width: 100%; display: block; cursor: pointer;"></video>
+                  <video v-else :src="item.itemImageSrc + '#t=1.0'" style="width: 100%; display: block; cursor: pointer;"></video>
                   <div class="card-title-overlay">
                     <div class="card-title">{{ item.title }}</div>
                   </div>

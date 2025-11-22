@@ -57,6 +57,7 @@ const shareVideo = () => {
     <Card class="video-card">
         <template #header>
             <video-player
+                class="video-js vjs-big-play-centered"
                 :src="video.itemImageSrc"
                 controls
                 :loop="true"
@@ -105,6 +106,31 @@ const shareVideo = () => {
   max-width: 60rem;
   width: 100%;
 }
+
+.video-card :deep(.video-js) {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    width: 100%;
+}
+
+.video-card :deep(.vjs-big-play-button) {
+    background-color: #646cffaa;
+    border: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.video-card :deep(.vjs-big-play-button:hover) {
+    background-color: #646cff;
+}
+
+.video-card :deep(.vjs-control-bar) {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.video-card :deep(.vjs-play-progress) {
+    background-color: #646cff;
+}
+
 .actions {
     display: flex;
     gap: 1rem;

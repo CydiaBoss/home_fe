@@ -8,16 +8,22 @@ import Button from 'primevue/button';
 const router = useRouter();
 const user = ref({});
 const photos = ref([]);
+const videos = ref([]);
 
 onMounted(() => {
   APIS.getUserProfile().then((response) => {
     user.value = response.user;
     photos.value = response.photos;
+    videos.value = response.videos;
   });
 });
 
-const animationDuration = computed(() => {
+const photoAnimationDuration = computed(() => {
     return photos.value.length * 5;
+});
+
+const videoAnimationDuration = computed(() => {
+    return videos.value.length * 5;
 });
 
 const navigateTo = (path) => {
@@ -27,6 +33,12 @@ const navigateTo = (path) => {
 const goToPhoto = (photo) => {
   if (photo && photo.id) {
     router.push({ name: 'singlephoto', params: { id: photo.id } });
+  }
+};
+
+const goToVideo = (video) => {
+  if (video && video.id) {
+    router.push({ name: 'singlevideo', params: { id: video.id } });
   }
 };
 </script>
@@ -47,12 +59,23 @@ const goToPhoto = (photo) => {
       </template>
     </Card>
 
-    <div class="photo-gallery" v-if="photos && photos.length > 0">
-      <h2>{{ $t('pages.myPhotos.title') }}</h2>
+    <div class="media-gallery" v-if="photos && photos.length > 0">
+      <h2>{{ $t('pages.userProfile.photosTitle') }}</h2>
       <div class="slideshow-container">
-        <div class="slideshow-track" :style="{ animationDuration: animationDuration + 's' }">
+        <div class="slideshow-track" :style="{ animationDuration: photoAnimationDuration + 's' }">
           <div v-for="(photo, index) in photos.concat(photos)" :key="index" class="slide" @click="goToPhoto(photo)">
             <img :src="photo.itemImageSrc" :alt="photo.alt" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="media-gallery" v-if="videos && videos.length > 0">
+      <h2>{{ $t('pages.userProfile.videosTitle') }}</h2>
+      <div class="slideshow-container">
+        <div class="slideshow-track" :style="{ animationDuration: videoAnimationDuration + 's' }">
+          <div v-for="(video, index) in videos.concat(videos)" :key="index" class="slide" @click="goToVideo(video)">
+            <video :src="video.itemImageSrc + '#t=0.1'"></video>
           </div>
         </div>
       </div>
@@ -96,13 +119,13 @@ const goToPhoto = (photo) => {
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
-.photo-gallery {
+.media-gallery {
   width: 100%;
   max-width: 60rem;
   overflow: hidden;
 }
 
-.photo-gallery h2 {
+.media-gallery h2 {
   text-align: center;
   margin-bottom: 1.5rem;
 }
@@ -146,7 +169,8 @@ const goToPhoto = (photo) => {
     transform: scale(1.05);
 }
 
-.slide img {
+.slide img,
+.slide video {
     width: 100%;
     height: 100%;
     object-fit: cover;
