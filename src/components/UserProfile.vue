@@ -14,7 +14,7 @@ onMounted(() => {
   APIS.getUserProfile().then((response) => {
     user.value = response.user;
     photos.value = response.photos;
-    videos.value = response.videos;
+    videos.value = response.videos.map(v => ({...v, thumbnailTime: v.thumbnailTime || 0.1}));
   });
 });
 
@@ -75,7 +75,7 @@ const goToVideo = (video) => {
       <div class="slideshow-container">
         <div class="slideshow-track" :style="{ animationDuration: videoAnimationDuration + 's' }">
           <div v-for="(video, index) in videos.concat(videos)" :key="index" class="slide" @click="goToVideo(video)">
-            <video :src="video.itemImageSrc + '#t=0.1'"></video>
+            <video :src="video.itemImageSrc + '#t=' + video.thumbnailTime"></video>
           </div>
         </div>
       </div>

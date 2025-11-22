@@ -21,7 +21,9 @@
     },
     "userProfile": {
       "title": "Profile",
-      "editTitle": "Edit Profile"
+      "editTitle": "Edit Profile",
+      "photosTitle": "My Photos",
+      "videosTitle": "My Videos"
     },
     "singlePhoto": {
       "editTitle": "Edit Photo"
@@ -42,7 +44,8 @@
     "description": "Description",
     "tags": "Tags",
     "comments": "Comments",
-    "addComment": "Add a comment..."
+    "addComment": "Add a comment...",
+    "thumbnail": "Thumbnail"
   },
   "actions": {
     "submit": "Submit",

@@ -39,13 +39,15 @@ export default {
             alt: 'A video of ocean waves.',
             itemImageSrc: 'https://vjs.zencdn.net/v/oceans.mp4',
             tags: ['ocean', 'waves', 'nature'],
+            thumbnailTime: 1.5
           },
           {
             id: 3,
             title: 'Elephants Dream',
             alt: 'A short film by the Blender Foundation.',
             itemImageSrc: 'https://d2zihajmogu5jn.cloudfront.net/elephantsdream/ed_hd.mp4',
-            tags: ['sci-fi', 'animation', 'short film']
+            tags: ['sci-fi', 'animation', 'short film'],
+            thumbnailTime: 1.5
           },
         ]
       });
@@ -108,7 +110,8 @@ export default {
             comments: [
               { id: 1, author: 'Jane Doe', text: 'Beautiful!', createdAt: new Date().toLocaleString() },
               { id: 2, author: 'John Smith', text: 'Amazing footage.', createdAt: new Date().toLocaleString() }
-            ]
+            ],
+            thumbnailTime: 1.5
           },
           {
             id: 3,
@@ -117,7 +120,8 @@ export default {
             itemImageSrc: 'https://d2zihajmogu5jn.cloudfront.net/elephantsdream/ed_hd.mp4',
             tags: ['sci-fi', 'animation', 'short film'],
             isFavorited: false,
-            comments: []
+            comments: [],
+            thumbnailTime: 1.5
           },
         ];
         const video = videos.find(v => v.id == id);

@@ -1,5 +1,6 @@
+
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import APIS from '../apis';
 
 import Card from 'primevue/card';
@@ -9,17 +10,19 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
 import Chips from 'primevue/chips';
+import Slider from 'primevue/slider';
 
 const media = ref([]);
 const displayEditDialog = ref(false);
 const editingMedia = ref(null);
 const searchTerm = ref('');
+const videoRef = ref(null);
 
 onMounted(() => {
-  APIS.getUserPhotos().then((response) => {
+  APIS.getUserProfile().then((response) => {
     const photos = response.photos || [];
     const videos = response.videos || [];
-    media.value = [...photos, ...videos];
+    media.value = [...photos, ...videos.map(v => ({...v, thumbnailTime: v.thumbnailTime || 0}))];
   });
 });
 
@@ -40,11 +43,17 @@ const onUpload = (event) => {
 
 const openEditDialog = (item) => {
   editingMedia.value = { ...item };
+  if (isVideo(editingMedia.value) && !editingMedia.value.thumbnailTime) {
+    editingMedia.value.thumbnailTime = 0;
+  }
   displayEditDialog.value = true;
 };
 
 const saveMedia = () => {
-  // Handle saving the updated media details
+  const index = media.value.findIndex(item => item.id === editingMedia.value.id && isVideo(item) === isVideo(editingMedia.value));
+  if (index !== -1) {
+    media.value[index] = editingMedia.value;
+  }
   displayEditDialog.value = false;
 };
 
@@ -53,7 +62,19 @@ const deleteMedia = (mediaId) => {
 };
 
 const isVideo = (item) => {
-  return item && item.itemImageSrc && item.itemImageSrc.includes('.mp4');
+  return item && item.itemImageSrc && (item.itemImageSrc.includes('.mp4') || item.itemImageSrc.includes('.m3u8'));
+}
+
+watch(() => editingMedia.value?.thumbnailTime, (newTime) => {
+  if (videoRef.value && isVideo(editingMedia.value)) {
+    videoRef.value.currentTime = newTime;
+  }
+});
+
+const updateThumbnailTime = (value) => {
+    if (editingMedia.value) {
+        editingMedia.value.thumbnailTime = value;
+    }
 }
 
 </script>
@@ -73,7 +94,7 @@ const isVideo = (item) => {
           <Card v-for="item in filteredMedia" :key="item.id" class="media-item">
             <template #header>
                 <img v-if="!isVideo(item)" class="media-preview" :src="item.itemImageSrc" :alt="item.alt" />
-                <video v-else class="media-preview" :src="item.itemImageSrc + '#t=0.1'"></video>
+                <video v-else class="media-preview" :src="item.itemImageSrc + '#t=' + item.thumbnailTime"></video>
             </template>
             <template #content>
                 <div class="media-details">
@@ -93,7 +114,7 @@ const isVideo = (item) => {
       <div class="edit-media-form">
         <div class="edit-media-image">
           <img v-if="!isVideo(editingMedia)" :src="editingMedia.itemImageSrc" :alt="editingMedia.alt" />
-          <video v-else :src="editingMedia.itemImageSrc" controls></video>
+          <video v-else ref="videoRef" :src="editingMedia.itemImageSrc" controls></video>
         </div>
         <div class="edit-media-fields">
           <div class="field">
@@ -108,6 +129,10 @@ const isVideo = (item) => {
             <label for="tags">{{ $t('form.tags') }}</label>
             <Chips id="tags" v-model="editingMedia.tags" />
           </div>
+           <div v-if="isVideo(editingMedia)" class="field">
+                <label for="thumbnail">{{ $t('form.thumbnail') }}</label>
+                <Slider id="thumbnail" v-model="editingMedia.thumbnailTime" :max="videoRef ? videoRef.duration : 100" :step="0.1" @update:modelValue="updateThumbnailTime" />
+            </div>
         </div>
       </div>
       <template #footer>

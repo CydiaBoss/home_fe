@@ -21,7 +21,9 @@
     },
     "userProfile": {
       "title": "Profil",
-      "editTitle": "Editer le profil"
+      "editTitle": "Editer le profil",
+      "photosTitle": "Mes Photos",
+      "videosTitle": "Mes Vidéos"
     },
     "singlePhoto": {
       "editTitle": "Modifier la photo"
@@ -42,7 +44,8 @@
     "description": "La description",
     "tags": "Mots clés",
     "comments": "Commentaires",
-    "addComment": "Ajouter un commentaire..."
+    "addComment": "Ajouter un commentaire...",
+    "thumbnail": "Miniature"
   },
   "actions": {
     "submit": "Soumettre",

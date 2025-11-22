@@ -21,7 +21,9 @@
     },
     "userProfile": {
       "title": "个人资料",
-      "editTitle": "编辑个人资料"
+      "editTitle": "编辑个人资料",
+      "photosTitle": "我的照片",
+      "videosTitle": "我的视频"
     },
     "singlePhoto": {
       "editTitle": "编辑照片"
@@ -42,7 +44,8 @@
     "description": "描述",
     "tags": "标签",
     "comments": "评论",
-    "addComment": "添加评论..."
+    "addComment": "添加评论...",
+    "thumbnail": "缩略图"
   },
   "actions": {
     "submit": "提交",
