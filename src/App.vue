@@ -47,9 +47,9 @@ const generateMenus = () => {
         icon: 'pi pi-images',
         command: () => navigateTo("/photos")
       },{
-        label: t('pages.myPhotos.title') ,
+        label: t('pages.myMedia.title') ,
         icon: 'pi pi-user',
-        command: () => navigateTo("/my-photos")
+        command: () => navigateTo("/my-media")
       }
     );
   }

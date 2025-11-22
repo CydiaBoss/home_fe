@@ -16,8 +16,8 @@
     "gallery": {
       "title": "画廊"
     },
-    "myPhotos": {
-      "title": "我的照片"
+    "myMedia": {
+      "title": "我的媒体"
     },
     "userProfile": {
       "title": "个人资料",
@@ -25,6 +25,9 @@
     },
     "singlePhoto": {
       "editTitle": "编辑照片"
+    },
+    "singleVideo": {
+      "editTitle": "编辑视频"
     }
   },
   "form": {

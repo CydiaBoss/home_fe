@@ -5,15 +5,19 @@ import APIS from '../apis';
 import Card from 'primevue/card';
 
 const images = ref([]);
+const videos = ref([]);
 const router = useRouter();
 let page = 1;
 const loading = ref(false);
 
-const fetchPhotos = () => {
+const fetchMedia = () => {
   if (loading.value) return;
   loading.value = true;
   APIS.getUserPhotos({ page, limit: 10 }).then((response) => {
     images.value = [...images.value, ...response.photos];
+    if (response.videos) {
+      videos.value = [...videos.value, ...response.videos];
+    }
     page++;
     loading.value = false;
   });
@@ -22,12 +26,12 @@ const fetchPhotos = () => {
 const handleScroll = () => {
   const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
   if (scrollTop + clientHeight >= scrollHeight - 5) {
-    fetchPhotos();
+    fetchMedia();
   }
 };
 
 onMounted(() => {
-  fetchPhotos();
+  fetchMedia();
   window.addEventListener('scroll', handleScroll);
 });
 
@@ -38,6 +42,12 @@ onUnmounted(() => {
 const goToPhoto = (photo) => {
   if (photo && photo.id) {
     router.push({ name: 'singlephoto', params: { id: photo.id } });
+  }
+};
+
+const goToVideo = (video) => {
+  if (video && video.id) {
+    router.push({ name: 'singlevideo', params: { id: video.id } });
   }
 };
 </script>
@@ -65,6 +75,28 @@ const goToPhoto = (photo) => {
         </div>
         <div v-if="loading" class="loading">{{ $t('messages.loading') }}</div>
       </template>
+    </Card>
+
+    <Card>
+        <template #title>
+            Videos
+        </template>
+        <template #content>
+            <div class="masonry">
+                <div v-for="video in videos" :key="video.id" class="masonry-item">
+                    <Card @click="goToVideo(video)">
+                        <template #header>
+                            <div class="card-header-container">
+                                <video :src="video.itemImageSrc" style="width: 100%; display: block; cursor: pointer;"></video>
+                                <div class="card-title-overlay">
+                                    <div class="card-title">{{ video.title }}</div>
+                                </div>
+                            </div>
+                        </template>
+                    </Card>
+                </div>
+            </div>
+        </template>
     </Card>
     
   </div>

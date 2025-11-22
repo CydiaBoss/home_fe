@@ -16,8 +16,9 @@ import Gallery from './components/Gallery.vue';
 import Login from './components/Login.vue';
 import UserProfile from './components/UserProfile.vue';
 import EditUserProfile from './components/EditUserProfile.vue';
-import MyPhotos from './components/MyPhotos.vue';
+import MyMedia from './components/MyMedia.vue';
 import SinglePhoto from './components/SinglePhoto.vue';
+import SingleVideo from './components/SingleVideo.vue';
 
 // PrimeVue & PrimeIcon
 import PrimeVue from 'primevue/config';
@@ -53,7 +54,7 @@ app.use(i18n);
 watch(
   () => i18n.global.locale.value,
   () => {
-    document.title = i18n.global.t('appTitle');
+    document.title = i18n.global.t('app.title');
   },
   { immediate: true } // Set title on initial load
 );
@@ -83,6 +84,11 @@ const router = createRouter({
             component: SinglePhoto
         },
         {
+            path: '/videos/:id',
+            name: 'singlevideo',
+            component: SingleVideo
+        },
+        {
           path: '/profile',
           name: 'userprofile',
           component: UserProfile
@@ -93,9 +99,9 @@ const router = createRouter({
           component: EditUserProfile
         },
         {
-          path: '/my-photos',
-          name: 'myphotos',
-          component: MyPhotos
+          path: '/my-media',
+          name: 'mymedia',
+          component: MyMedia
         }
     ],
 });

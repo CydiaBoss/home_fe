@@ -31,6 +31,15 @@ export default {
             alt: 'Description for Image 3',
             title: 'Title 3'
           }
+        ],
+        videos: [
+          {
+            id: 1,
+            title: 'Oceans',
+            alt: 'A video of ocean waves.',
+            itemImageSrc: 'https://vjs.zencdn.net/v/oceans.mp4',
+            tags: ['ocean', 'waves', 'nature'],
+          }
         ]
       });
     });
@@ -74,6 +83,29 @@ export default {
         ];
         const photo = photos.find(p => p.id == id);
         resolve(photo);
+    });
+  },
+  getUserVideos() {
+    return this.getUserProfile();
+  },
+  getVideoById(id) {
+    return new Promise((resolve) => {
+        const videos = [
+          {
+            id: 1,
+            title: 'Oceans',
+            alt: 'A video of ocean waves.',
+            itemImageSrc: 'https://vjs.zencdn.net/v/oceans.mp4',
+            tags: ['ocean', 'waves', 'nature'],
+            isFavorited: false,
+            comments: [
+              { id: 1, author: 'Jane Doe', text: 'Beautiful!', createdAt: new Date().toLocaleString() },
+              { id: 2, author: 'John Smith', text: 'Amazing footage.', createdAt: new Date().toLocaleString() }
+            ]
+          }
+        ];
+        const video = videos.find(v => v.id == id);
+        resolve(video);
     });
   }
 };

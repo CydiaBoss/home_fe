@@ -16,8 +16,8 @@
     "gallery": {
       "title": "Galerie"
     },
-    "myPhotos": {
-      "title": "Mes Photos"
+    "myMedia": {
+      "title": "Mes médias"
     },
     "userProfile": {
       "title": "Profil",
@@ -25,6 +25,9 @@
     },
     "singlePhoto": {
       "editTitle": "Modifier la photo"
+    },
+    "singleVideo": {
+      "editTitle": "Modifier la vidéo"
     }
   },
   "form": {
