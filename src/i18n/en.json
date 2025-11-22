@@ -1,42 +1,70 @@
 {
-    "appTitle": "Wang HQ Database",
-    "homeDescription": "Welcome to the Wang HQ Database. You can view all of the house's files from photos to documents.",
-    "loginTitle": "Login",
-    "loginDescription": "Please log in to view all of the house's files. If you don't have an account, please contact the administrator.",
+  "app": {
+    "title": "Wang HQ Database",
+    "language": "Language",
+    "languageName": "English"
+  },
+  "pages": {
+    "home": {
+      "title": "Home",
+      "description": "Welcome to the Wang HQ Database. You can view all of the house's files from photos to documents."
+    },
+    "login": {
+      "title": "Login",
+      "description": "Please log in to view all of the house's files. If you don't have an account, please contact the administrator."
+    },
+    "gallery": {
+      "title": "Gallery"
+    },
+    "myPhotos": {
+      "title": "My Photos"
+    },
+    "userProfile": {
+      "title": "Profile",
+      "editTitle": "Edit Profile"
+    },
+    "singlePhoto": {
+      "editTitle": "Edit Photo"
+    }
+  },
+  "form": {
     "username": "Username",
     "password": "Password",
-    "home": "Home",
-    "photos": "Gallery",
-    "submit": "Submit",
-    "editProfile": "Edit Profile",
+    "newPassword": "New Password",
     "name": "Name",
     "email": "Email",
     "bio": "Bio",
-    "newPassword": "New Password",
     "avatar": "Avatar",
-    "cancel": "Cancel",
-    "save": "Save",
-    "myPhotos": "My Photos",
-    "browse": "Browse",
-    "language": "Language",
-    "search": "Search",
-    "uploadPhoto": "Upload Photo",
-    "editPhoto": "Edit Photo",
     "title": "Title",
-    "loading": "Loading...",
-    "usernameRequired": "Username is required.",
-    "passwordRequired": "Password is required.",
-    "incorrectCredentials": "Incorrect username or password.",
     "description": "Description",
     "tags": "Tags",
     "comments": "Comments",
-    "addComment": "Add a comment...",
+    "addComment": "Add a comment..."
+  },
+  "actions": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "browse": "Browse",
+    "search": "Search",
+    "uploadPhoto": "Upload Photo",
     "comment": "Comment",
-    "successfulShare": "Successful share",
-    "errorSharing": "Error sharing",
-    "shareNotSupported": "Share functionality not supported in your browser.",
-    "currentUser": "Current User",
-    "profile": "Profile",
-    "logout": "Logout",
-    "languageName": "English"
+    "logout": "Logout"
+  },
+  "messages": {
+    "loading": "Loading...",
+    "errors": {
+      "usernameRequired": "Username is required.",
+      "passwordRequired": "Password is required.",
+      "incorrectCredentials": "Incorrect username or password.",
+      "errorSharing": "Error sharing",
+      "shareNotSupported": "Share functionality not supported in your browser."
+    },
+    "success": {
+        "successfulShare": "Successful share"
+    }
+  },
+  "user": {
+      "currentUser": "Current User"
+  }
 }

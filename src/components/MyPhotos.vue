@@ -56,12 +56,12 @@ const deletePhoto = (photoId) => {
   <div class="my-photos-container">
     <Card class="my-photos-card">
       <template #title>
-        {{ $t('myPhotos') }}
+        {{ $t('pages.myPhotos.title') }}
       </template>
       <template #content>
         <div class="toolbar-section">
-          <FileUpload mode="basic" name="photos[]" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :chooseLabel="$t('uploadPhoto')" />
-          <InputText v-model="searchTerm" :placeholder="$t('search')" />
+          <FileUpload mode="basic" name="photos[]" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :chooseLabel="$t('actions.uploadPhoto')" />
+          <InputText v-model="searchTerm" :placeholder="$t('actions.search')" />
         </div>
         <div class="photo-gallery">
           <Card v-for="photo in filteredPhotos" :key="photo.id" class="photo-item">
@@ -82,29 +82,29 @@ const deletePhoto = (photoId) => {
       </template>
     </Card>
 
-    <Dialog :header="$t('editPhoto')" v-model:visible="displayEditDialog" :modal="true">
+    <Dialog :header="$t('pages.singlePhoto.editTitle')" v-model:visible="displayEditDialog" :modal="true">
       <div class="edit-photo-form">
         <div class="edit-photo-image">
           <img :src="editingPhoto.itemImageSrc" :alt="editingPhoto.alt" />
         </div>
         <div class="edit-photo-fields">
           <div class="field">
-            <label for="title">{{ $t('title') }}</label>
+            <label for="title">{{ $t('form.title') }}</label>
             <InputText id="title" v-model="editingPhoto.title" />
           </div>
           <div class="field">
-            <label for="description">{{ $t('description') }}</label>
+            <label for="description">{{ $t('form.description') }}</label>
             <Textarea id="description" v-model="editingPhoto.description" rows="3" />
           </div>
           <div class="field">
-            <label for="tags">{{ $t('tags') }}</label>
+            <label for="tags">{{ $t('form.tags') }}</label>
             <Chips id="tags" v-model="editingPhoto.tags" />
           </div>
         </div>
       </div>
       <template #footer>
-        <Button :label="$t('cancel')" icon="pi pi-times" @click="displayEditDialog = false" class="p-button-text"/>
-        <Button :label="$t('save')" icon="pi pi-check" @click="savePhoto" />
+        <Button :label="$t('actions.cancel')" icon="pi pi-times" @click="displayEditDialog = false" class="p-button-text"/>
+        <Button :label="$t('actions.save')" icon="pi pi-check" @click="savePhoto" />
       </template>
     </Dialog>
   </div>

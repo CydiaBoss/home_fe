@@ -24,7 +24,7 @@ const addComment = () => {
     // Mock API call to add comment
     comments.value.push({
         id: comments.value.length + 1,
-        author: t('currentUser'), // Replace with actual user
+        author: t('user.currentUser'), // Replace with actual user
         text: newComment.value,
         createdAt: new Date().toLocaleString()
     });
@@ -45,10 +45,10 @@ const sharePhoto = () => {
       text: photo.value.alt,
       url: window.location.href,
     })
-    .then(() => console.log(t('successfulShare')))
-    .catch((error) => console.log(t('errorSharing'), error));
+    .then(() => console.log(t('messages.success.successfulShare')))
+    .catch((error) => console.log(t('messages.errors.errorSharing'), error));
   } else {
-    alert(t('shareNotSupported'));
+    alert(t('messages.errors.shareNotSupported'));
   }
 };
 </script>
@@ -75,15 +75,15 @@ const sharePhoto = () => {
     </Card>
 
     <div class="comments-section">
-      <h3>{{ $t('comments') }}</h3>
+      <h3>{{ $t('form.comments') }}</h3>
       <div v-for="comment in comments" :key="comment.id" class="comment">
         <strong>{{ comment.author }}</strong>
         <p>{{ comment.text }}</p>
         <span>{{ comment.createdAt }}</span>
       </div>
       <div class="add-comment">
-        <Textarea v-model="newComment" rows="3" :placeholder="$t('addComment')" />
-        <Button :label="$t('comment')" @click="addComment" />
+        <Textarea v-model="newComment" rows="3" :placeholder="$t('form.addComment')" />
+        <Button :label="$t('actions.comment')" @click="addComment" />
       </div>
     </div>
   </div>

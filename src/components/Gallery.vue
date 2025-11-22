@@ -46,7 +46,7 @@ const goToPhoto = (photo) => {
   <div class="photo-gallery">
     <Card>
       <template #title>
-        {{ $t('photos') }}
+        {{ $t('pages.gallery.title') }}
       </template>
       <template #content>
         <div class="masonry">
@@ -63,7 +63,7 @@ const goToPhoto = (photo) => {
             </Card>
           </div>
         </div>
-        <div v-if="loading" class="loading">{{ $t('loading') }}</div>
+        <div v-if="loading" class="loading">{{ $t('messages.loading') }}</div>
       </template>
     </Card>
     

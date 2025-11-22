@@ -48,7 +48,7 @@ const goToPhoto = (photo) => {
     </Card>
 
     <div class="photo-gallery" v-if="photos && photos.length > 0">
-      <h2>{{ $t('myPhotos') }}</h2>
+      <h2>{{ $t('pages.myPhotos.title') }}</h2>
       <div class="slideshow-container">
         <div class="slideshow-track" :style="{ animationDuration: animationDuration + 's' }">
           <div v-for="(photo, index) in photos.concat(photos)" :key="index" class="slide" @click="goToPhoto(photo)">

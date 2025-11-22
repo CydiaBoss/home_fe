@@ -2,10 +2,10 @@
 </script>
 
 <template>
-  <h1>{{ $t("appTitle") }}</h1>
+  <h1>{{ $t("app.title") }}</h1>
   <img class="logo" src="/home.svg"/>
   <p>
-    {{ $t("homeDescription") }}
+    {{ $t("pages.home.description") }}
   </p>
 </template>
 

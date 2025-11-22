@@ -14,12 +14,12 @@ function loginUser() {
 
   // Validate Username
   if (username.value.trim() == "") {
-    errors.value.push("usernameRequired");
+    errors.value.push("messages.errors.usernameRequired");
   }
 
   // Validate Password
   if (password.value.trim() == "") {
-    errors.value.push("passwordRequired");
+    errors.value.push("messages.errors.passwordRequired");
   }
 
   // End if fail
@@ -31,7 +31,7 @@ function loginUser() {
   APIS.loginUser(username.value, password.value).then((resp) => {
     // On fail
     if (resp.success == "fail") {
-      errors.value.push("incorrectCredentials");
+      errors.value.push("messages.errors.incorrectCredentials");
       return;
     }
     // On pass
@@ -48,12 +48,12 @@ function loginUser() {
           <img class="header-pic" src="https://primefaces.org/cdn/primevue/images/galleria/galleria1.jpg">
         </div>
       </template>
-      <template #title>{{ $t("loginTitle") }}</template>
-      <template #subtitle>{{ $t("loginDescription") }}</template>
+      <template #title>{{ $t("pages.login.title") }}</template>
+      <template #subtitle>{{ $t("pages.login.description") }}</template>
       <template #content>
         <div class="login-form">
-          <InputText v-model="username" type="text" :placeholder="$t('username')" fluid />
-          <Password v-model="password" :placeholder="$t('password')" toggleMask fluid :feedback="false" />
+          <InputText v-model="username" type="text" :placeholder="$t('form.username')" fluid />
+          <Password v-model="password" :placeholder="$t('form.password')" toggleMask fluid :feedback="false" />
           <Message v-if="errors.length > 0" severity="error" size="small" variant="simple" closable>
             <ul class="error-list">
               <li v-for="(error, index) of errors" :key="index">{{ $t(error) }}</li>
@@ -63,7 +63,7 @@ function loginUser() {
       </template>
       <template #footer>
           <div class="flex mt-1">
-            <Button severity="primary" :label="$t('submit')" @click="loginUser" style="width: 100%;"/>
+            <Button severity="primary" :label="$t('actions.submit')" @click="loginUser" style="width: 100%;"/>
           </div>
       </template>
   </Card>

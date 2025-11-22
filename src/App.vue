@@ -35,7 +35,7 @@ const checkLoginStatus = () => {
 const generateMenus = () => {
   const newMenus = [
     {
-      label: t('home'),
+      label: t('pages.home.title'),
       icon: 'pi pi-home',
       command: () => navigateTo("/")
     }
@@ -43,11 +43,11 @@ const generateMenus = () => {
   if (isLoggedIn.value) {
     newMenus.push(
       {
-        label: t('photos'),
+        label: t('pages.gallery.title'),
         icon: 'pi pi-images',
         command: () => navigateTo("/photos")
       },{
-        label: t('myPhotos') ,
+        label: t('pages.myPhotos.title') ,
         icon: 'pi pi-user',
         command: () => navigateTo("/my-photos")
       }
@@ -68,7 +68,7 @@ watch(route, checkLoginStatus);
 
 const languageMenu = computed(() => {
   return i18n.global.availableLocales.map(loc => ({
-    label: i18n.global.messages.value[loc].languageName,
+    label: i18n.global.messages.value[loc].app.languageName,
     command: () => {
       locale.value = loc;
     }
@@ -80,12 +80,12 @@ const userMenuItems = ref([]);
 const generateUserMenuItems = () => {
     userMenuItems.value = [
         {
-            label: t('profile'),
+            label: t('pages.userProfile.title'),
             icon: 'pi pi-user',
             command: () => navigateTo('/profile')
         },
         {
-            label: t('logout'),
+            label: t('actions.logout'),
             icon: 'pi pi-sign-out',
             command: () => {
                 document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
