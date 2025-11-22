@@ -120,16 +120,17 @@ const goToMedia = (item) => {
     background-color: rgba(0, 0, 0, 0.25);
     color: #fff;
     padding: 0.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+    transition: font-size 0.2s ease-in-out;
 }
+
+.masonry-item .p-card:hover .card-title-overlay {
+    font-size: 1.25rem;
+}
+
 .card-title {
-    font-size: 1rem;
     font-weight: bold;
-    transform: scale(0.75) translateX(-35%);
-    transform-origin: left;
-    transition: transform 0.2s ease-in-out;
-}
-.masonry-item .p-card:hover .card-title {
-    transform: scale(1) translateX(0);
 }
 
 @media (max-width: 768px) {
