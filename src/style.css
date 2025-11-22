@@ -37,6 +37,8 @@ a:hover {
   width: 100%;
   padding: 1rem;
   text-align: center;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 @media (prefers-color-scheme: light) {
