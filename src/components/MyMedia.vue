@@ -66,14 +66,14 @@ const isVideo = (item) => {
       </template>
       <template #content>
         <div class="toolbar-section">
-          <FileUpload mode="basic" name="media[]" url="./upload" accept="image/*,video/*" :maxFileSize="1000000" @upload="onUpload" :chooseLabel="$t('actions.uploadPhoto')" />
+          <FileUpload mode="basic" name="media[]" url="./upload" accept="image/*,video/*" :maxFileSize="1000000" @upload="onUpload" :chooseLabel="$t('actions.uploadMedia')" />
           <InputText v-model="searchTerm" :placeholder="$t('actions.search')" />
         </div>
         <div class="media-gallery">
           <Card v-for="item in filteredMedia" :key="item.id" class="media-item">
             <template #header>
-                <img v-if="!isVideo(item)" :src="item.itemImageSrc" :alt="item.alt" style="width: 100%; display: block;" />
-                <video v-else :src="item.itemImageSrc" controls style="width: 100%; display: block;"></video>
+                <img v-if="!isVideo(item)" class="media-preview" :src="item.itemImageSrc" :alt="item.alt" />
+                <video v-else class="media-preview" :src="item.itemImageSrc + '#t=0.1'"></video>
             </template>
             <template #content>
                 <div class="media-details">
@@ -130,8 +130,8 @@ const isVideo = (item) => {
 }
 .media-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
 }
 
 .media-item {
@@ -177,6 +177,13 @@ const isVideo = (item) => {
     filter: drop-shadow(0 0 0.5rem #646cffaa);
 }
 
+.media-preview {
+  height: 120px;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .edit-media-form {
   display: flex;
   gap: 1.5rem;
@@ -208,9 +215,34 @@ const isVideo = (item) => {
   width: 100%;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
+  .media-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+  .media-preview {
+    height: 150px;
+  }
   .edit-media-form {
-    flex-direction: column;
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1200px) {
+  .media-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+   .media-preview {
+    height: 200px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .media-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  .media-preview {
+    height: 250px;
   }
 }
 </style>
