@@ -4,8 +4,7 @@ import { useRouter } from 'vue-router';
 import APIS from '../apis';
 import Card from 'primevue/card';
 
-const images = ref([]);
-const videos = ref([]);
+const media = ref([]);
 const router = useRouter();
 let page = 1;
 const loading = ref(false);
@@ -13,11 +12,9 @@ const loading = ref(false);
 const fetchMedia = () => {
   if (loading.value) return;
   loading.value = true;
-  APIS.getUserPhotos({ page, limit: 10 }).then((response) => {
-    images.value = [...images.value, ...response.photos];
-    if (response.videos) {
-      videos.value = [...videos.value, ...response.videos];
-    }
+  APIS.getUserProfile({ page, limit: 10 }).then((response) => {
+    const { photos = [], videos = [] } = response;
+    media.value = [...media.value, ...photos, ...videos];
     page++;
     loading.value = false;
   });
@@ -39,34 +36,37 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
 
-const goToPhoto = (photo) => {
-  if (photo && photo.id) {
-    router.push({ name: 'singlephoto', params: { id: photo.id } });
-  }
+const isVideo = (item) => {
+  return item && item.itemImageSrc && item.itemImageSrc.includes('.mp4');
 };
 
-const goToVideo = (video) => {
-  if (video && video.id) {
-    router.push({ name: 'singlevideo', params: { id: video.id } });
+const goToMedia = (item) => {
+  if (item && item.id) {
+    if (isVideo(item)) {
+      router.push({ name: 'singlevideo', params: { id: item.id } });
+    } else {
+      router.push({ name: 'singlephoto', params: { id: item.id } });
+    }
   }
 };
 </script>
 
 <template>
-  <div class="photo-gallery">
+  <div class="media-gallery-container">
     <Card>
       <template #title>
         {{ $t('pages.gallery.title') }}
       </template>
       <template #content>
         <div class="masonry">
-          <div v-for="image in images" :key="image.id" class="masonry-item">
-            <Card @click="goToPhoto(image)">
+          <div v-for="item in media" :key="item.id" class="masonry-item">
+            <Card @click="goToMedia(item)">
               <template #header>
                 <div class="card-header-container">
-                  <img :src="image.itemImageSrc" :alt="image.alt" style="width: 100%; display: block; cursor: pointer;" />
+                  <img v-if="!isVideo(item)" :src="item.itemImageSrc" :alt="item.alt" style="width: 100%; display: block; cursor: pointer;" />
+                  <video v-else :src="item.itemImageSrc" style="width: 100%; display: block; cursor: pointer;"></video>
                   <div class="card-title-overlay">
-                    <div class="card-title">{{ image.title }}</div>
+                    <div class="card-title">{{ item.title }}</div>
                   </div>
                 </div>
               </template>
@@ -76,34 +76,11 @@ const goToVideo = (video) => {
         <div v-if="loading" class="loading">{{ $t('messages.loading') }}</div>
       </template>
     </Card>
-
-    <Card>
-        <template #title>
-            Videos
-        </template>
-        <template #content>
-            <div class="masonry">
-                <div v-for="video in videos" :key="video.id" class="masonry-item">
-                    <Card @click="goToVideo(video)">
-                        <template #header>
-                            <div class="card-header-container">
-                                <video :src="video.itemImageSrc" style="width: 100%; display: block; cursor: pointer;"></video>
-                                <div class="card-title-overlay">
-                                    <div class="card-title">{{ video.title }}</div>
-                                </div>
-                            </div>
-                        </template>
-                    </Card>
-                </div>
-            </div>
-        </template>
-    </Card>
-    
   </div>
 </template>
 
 <style scoped>
-.photo-gallery {
+.media-gallery-container {
   width: 100%;
 }
 .masonry {
