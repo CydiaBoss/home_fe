@@ -45,7 +45,16 @@
     "tags": "標籤",
     "comments": "評論",
     "addComment": "添加評論...",
-    "thumbnail": "縮略圖"
+    "thumbnail": "縮略圖",
+    "generateShareLink": {
+      "title": "產生分享連結",
+      "enableExpiry": "啟用有效期",
+      "enabled": "已啟用",
+      "disabled": "已禁用",
+      "expiryDate": "到期日期",
+      "generateLink": "產生連結",
+      "shareLink": "分享連結"
+    }
   },
   "actions": {
     "submit": "提交",
@@ -53,7 +62,7 @@
     "save": "保存",
     "browse": "瀏覽",
     "search": "搜索",
-    "uploadPhoto": "上傳照片",
+    "uploadMedia": "上傳媒體",
     "comment": "評論",
     "logout": "登出"
   },

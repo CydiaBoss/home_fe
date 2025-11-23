@@ -45,7 +45,16 @@
     "tags": "Mots clés",
     "comments": "Commentaires",
     "addComment": "Ajouter un commentaire...",
-    "thumbnail": "Miniature"
+    "thumbnail": "Miniature",
+    "generateShareLink": {
+      "title": "Générer un lien de partage",
+      "enableExpiry": "Activer la date d'expiration",
+      "enabled": "Activé",
+      "disabled": "Désactivé",
+      "expiryDate": "Date d'expiration",
+      "generateLink": "Générer un lien",
+      "shareLink": "Lien de partage"
+    }
   },
   "actions": {
     "submit": "Soumettre",
@@ -53,7 +62,7 @@
     "save": "Sauvegarder",
     "browse": "Parcourir",
     "search": "Chercher",
-    "uploadPhoto": "Télécharger une photo",
+    "uploadMedia": "Télécharger un média",
     "comment": "Commentaire",
     "logout": "Se déconnecter"
   },

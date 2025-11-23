@@ -122,11 +122,12 @@ const goToMedia = (item) => {
     padding: 0.5rem;
     text-align: center;
     font-size: 0.75rem;
-    transition: font-size 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .masonry-item .p-card:hover .card-title-overlay {
     font-size: 1.25rem;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .card-title {

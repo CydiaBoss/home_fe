@@ -5,6 +5,12 @@ import APIS from '../apis';
 import Tag from 'primevue/tag';
 import { useI18n } from 'vue-i18n';
 import { VideoPlayer } from '@videojs-player/vue';
+import Dialog from 'primevue/dialog';
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+import ToggleButton from 'primevue/togglebutton';
+import Calendar from 'primevue/calendar';
+
 import 'video.js/dist/video-js.css';
 
 const { t } = useI18n();
@@ -12,6 +18,10 @@ const route = useRoute();
 const video = ref({});
 const comments = ref([]);
 const newComment = ref('');
+const showShareDialog = ref(false);
+const expiryEnabled = ref(false);
+const expiryDate = ref(null);
+const shareLink = ref('');
 
 onMounted(() => {
   const videoId = route.params.id;
@@ -37,18 +47,17 @@ const toggleFavorite = () => {
   video.value.isFavorited = !video.value.isFavorited;
 };
 
-const shareVideo = () => {
-  if (navigator.share) {
-    navigator.share({
-      title: video.value.title,
-      text: video.value.alt,
-      url: window.location.href,
-    })
-    .then(() => console.log(t('messages.success.successfulShare')))
-    .catch((error) => console.log(t('messages.errors.errorSharing'), error));
-  } else {
-    alert(t('messages.errors.shareNotSupported'));
+const openShareDialog = () => {
+  showShareDialog.value = true;
+};
+
+const generateShareLink = () => {
+  let link = window.location.href;
+  if (expiryEnabled.value && expiryDate.value) {
+    const expiry = new Date(expiryDate.value).toISOString();
+    link += `?expires=${expiry}`;
   }
+  shareLink.value = link;
 };
 </script>
 
@@ -56,7 +65,7 @@ const shareVideo = () => {
   <div class="video-container">
     <Card class="video-card">
         <template #header>
-            <video-player
+            <VideoPlayer
                 class="video-js vjs-big-play-centered"
                 :src="video.itemImageSrc"
                 controls
@@ -74,10 +83,30 @@ const shareVideo = () => {
         <template #footer>
             <div class="actions">
                 <Button icon="pi pi-heart" class="p-button-rounded" :class="{'p-button-danger': video.isFavorited}" @click="toggleFavorite" />
-                <Button icon="pi pi-share-alt" class="p-button-rounded p-button-secondary" @click="shareVideo" />
+                <Button icon="pi pi-share-alt" class="p-button-rounded p-button-secondary" @click="openShareDialog" />
             </div>
         </template>
     </Card>
+
+    <Dialog v-model:visible="showShareDialog" modal :header="$t('form.generateShareLink.title')" :style="{ width: '50vw' }">
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="expiry-toggle">{{ $t('form.generateShareLink.enableExpiry') }}</label>
+                <ToggleButton v-model="expiryEnabled" :onLabel="$t('form.generateShareLink.enabled')" :offLabel="$t('form.generateShareLink.disabled')" />
+            </div>
+            <div v-if="expiryEnabled" class="p-field">
+                <label for="expiry-date">{{ $t('form.generateShareLink.expiryDate') }}</label>
+                <Calendar v-model="expiryDate" :showIcon="true" />
+            </div>
+            <div class="p-field">
+                <Button :label="$t('form.generateShareLink.generateLink')" @click="generateShareLink" />
+            </div>
+            <div v-if="shareLink" class="p-field">
+                <label for="share-link">{{ $t('form.generateShareLink.shareLink') }}</label>
+                <InputText v-model="shareLink" readonly />
+            </div>
+        </div>
+    </Dialog>
 
     <div class="comments-section">
       <h3>{{ $t('form.comments') }}</h3>
@@ -154,5 +183,8 @@ const shareVideo = () => {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+.p-field {
+    margin-bottom: 1rem;
 }
 </style>

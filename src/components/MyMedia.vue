@@ -87,7 +87,7 @@ const updateThumbnailTime = (value) => {
       </template>
       <template #content>
         <div class="toolbar-section">
-          <FileUpload mode="basic" name="media[]" url="./upload" accept="image/*,video/*" :maxFileSize="1000000" @upload="onUpload" :chooseLabel="$t('actions.uploadMedia')" />
+          <FileUpload mode="basic" name="media[]" url="./upload" accept="image/*,video/*" @upload="onUpload" :chooseLabel="$t('actions.uploadMedia')" />
           <InputText v-model="searchTerm" :placeholder="$t('actions.search')" />
         </div>
         <div class="media-gallery">

@@ -4,12 +4,22 @@ import { useRoute } from 'vue-router';
 import APIS from '../apis';
 import Tag from 'primevue/tag';
 import { useI18n } from 'vue-i18n';
+import Dialog from 'primevue/dialog';
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+import ToggleButton from 'primevue/togglebutton';
+import Calendar from 'primevue/calendar';
+
 
 const { t } = useI18n();
 const route = useRoute();
 const photo = ref({});
 const comments = ref([]);
 const newComment = ref('');
+const showShareDialog = ref(false);
+const expiryEnabled = ref(false);
+const expiryDate = ref(null);
+const shareLink = ref('');
 
 onMounted(() => {
   const photoId = route.params.id;
@@ -37,20 +47,19 @@ const toggleFavorite = () => {
   // Mock API call to update favorite status
 };
 
-const sharePhoto = () => {
-  // Basic share functionality
-  if (navigator.share) {
-    navigator.share({
-      title: photo.value.title,
-      text: photo.value.alt,
-      url: window.location.href,
-    })
-    .then(() => console.log(t('messages.success.successfulShare')))
-    .catch((error) => console.log(t('messages.errors.errorSharing'), error));
-  } else {
-    alert(t('messages.errors.shareNotSupported'));
-  }
+const openShareDialog = () => {
+  showShareDialog.value = true;
 };
+
+const generateShareLink = () => {
+  let link = window.location.href;
+  if (expiryEnabled.value && expiryDate.value) {
+    const expiry = new Date(expiryDate.value).toISOString();
+    link += `?expires=${expiry}`;
+  }
+  shareLink.value = link;
+};
+
 </script>
 
 <template>
@@ -69,10 +78,31 @@ const sharePhoto = () => {
         <template #footer>
             <div class="actions">
                 <Button icon="pi pi-heart" class="p-button-rounded" :class="{'p-button-danger': photo.isFavorited}" @click="toggleFavorite" />
-                <Button icon="pi pi-share-alt" class="p-button-rounded p-button-secondary" @click="sharePhoto" />
+                <Button icon="pi pi-share-alt" class="p-button-rounded p-button-secondary" @click="openShareDialog" />
             </div>
         </template>
     </Card>
+
+    <Dialog v-model:visible="showShareDialog" modal :header="$t('form.generateShareLink.title')" :style="{ width: '50vw' }">
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="expiry-toggle">{{ $t('form.generateShareLink.enableExpiry') }}</label>
+                <ToggleButton v-model="expiryEnabled" :onLabel="$t('form.generateShareLink.enabled')" :offLabel="$t('form.generateShareLink.disabled')" />
+            </div>
+            <div v-if="expiryEnabled" class="p-field">
+                <label for="expiry-date">{{ $t('form.generateShareLink.expiryDate') }}</label>
+                <Calendar v-model="expiryDate" :showIcon="true" />
+            </div>
+            <div class="p-field">
+                <Button :label="$t('form.generateShareLink.generateLink')" @click="generateShareLink" />
+            </div>
+            <div v-if="shareLink" class="p-field">
+                <label for="share-link">{{ $t('form.generateShareLink.shareLink') }}</label>
+                <InputText v-model="shareLink" readonly />
+            </div>
+        </div>
+    </Dialog>
+
 
     <div class="comments-section">
       <h3>{{ $t('form.comments') }}</h3>
@@ -124,5 +154,8 @@ const sharePhoto = () => {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+.p-field {
+    margin-bottom: 1rem;
 }
 </style>

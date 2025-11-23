@@ -45,7 +45,16 @@
     "tags": "标签",
     "comments": "评论",
     "addComment": "添加评论...",
-    "thumbnail": "缩略图"
+    "thumbnail": "缩略图",
+    "generateShareLink": {
+      "title": "生成分享链接",
+      "enableExpiry": "启用有效期",
+      "enabled": "已启用",
+      "disabled": "已禁用",
+      "expiryDate": "到期日期",
+      "generateLink": "生成链接",
+      "shareLink": "分享链接"
+    }
   },
   "actions": {
     "submit": "提交",
@@ -53,7 +62,7 @@
     "save": "保存",
     "browse": "浏览",
     "search": "搜索",
-    "uploadPhoto": "上传照片",
+    "uploadMedia": "上传媒体",
     "comment": "评论",
     "logout": "登出"
   },

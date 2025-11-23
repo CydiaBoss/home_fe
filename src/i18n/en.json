@@ -45,7 +45,16 @@
     "tags": "Tags",
     "comments": "Comments",
     "addComment": "Add a comment...",
-    "thumbnail": "Thumbnail"
+    "thumbnail": "Thumbnail",
+    "generateShareLink": {
+      "title": "Generate Share Link",
+      "enableExpiry": "Enable Expiry Date",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "expiryDate": "Expiry Date",
+      "generateLink": "Generate Link",
+      "shareLink": "Share Link"
+    }
   },
   "actions": {
     "submit": "Submit",
