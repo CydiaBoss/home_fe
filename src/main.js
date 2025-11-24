@@ -33,7 +33,7 @@ import DatePicker from 'primevue/datepicker';
 import Galleria from 'primevue/galleria';
 import Card from 'primevue/card';
 import ToggleButton from 'primevue/togglebutton';
-import Chips from 'primevue/chips';
+import InputChips from 'primevue/inputchips';
 import Slider from 'primevue/slider';
 
 // PrimeVue Form
@@ -129,7 +129,7 @@ app.component("TieredMenu", TieredMenu);
 app.component("DatePicker", DatePicker);
 app.component("Galleria", Galleria);
 app.component("ToggleButton", ToggleButton);
-app.component("Chips", Chips);
+app.component("InputChips", InputChips);
 app.component("Slider", Slider);
 
 app.component("InputText", InputText);

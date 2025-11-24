@@ -118,7 +118,7 @@ const updateThumbnailTime = (value) => {
           </div>
           <div class="field">
             <label for="tags">{{ $t('form.tags') }}</label>
-            <Chips id="tags" v-model="editingMedia.tags" />
+            <InputChips id="tags" v-model="editingMedia.tags" />
           </div>
            <div v-if="isVideo(editingMedia)" class="field">
                 <label for="thumbnail">{{ $t('form.thumbnail') }}</label>
