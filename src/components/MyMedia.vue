@@ -162,22 +162,21 @@ const updateThumbnailTime = (value) => {
 }
 
 .media-item :deep(.p-card-body) {
-    padding: 0;
+  padding: 0;
 }
 
 .media-item :deep(.p-card-content) {
-    padding: 0.75rem;
+  padding: 0.75rem;
 }
 
 .media-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .media-title {
-    font-weight: bold;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
 }
 
 .media-actions {
@@ -186,11 +185,11 @@ const updateThumbnailTime = (value) => {
 }
 
 .media-actions .p-button {
-    transition: filter 0.2s ease-in-out;
+  transition: filter 0.2s ease-in-out;
 }
 
 .media-actions .p-button:hover {
-    filter: drop-shadow(0 0 0.5rem #646cffaa);
+  filter: drop-shadow(0 0 0.5rem #646cffaa);
 }
 
 .media-preview {
