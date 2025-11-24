@@ -4,12 +4,6 @@ import { useRoute } from 'vue-router';
 import APIS from '../apis';
 import Tag from 'primevue/tag';
 import { useI18n } from 'vue-i18n';
-import Dialog from 'primevue/dialog';
-import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
-import ToggleButton from 'primevue/togglebutton';
-import Calendar from 'primevue/calendar';
-
 
 const { t } = useI18n();
 const route = useRoute();
@@ -91,7 +85,7 @@ const generateShareLink = () => {
             </div>
             <div v-if="expiryEnabled" class="p-field">
                 <label for="expiry-date">{{ $t('form.generateShareLink.expiryDate') }}</label>
-                <Calendar v-model="expiryDate" :showIcon="true" />
+                <DatePicker v-model="expiryDate" :showIcon="true" :showTime="true" />
             </div>
             <div class="p-field">
                 <Button :label="$t('form.generateShareLink.generateLink')" @click="generateShareLink" />

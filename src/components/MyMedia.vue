@@ -3,15 +3,6 @@
 import { ref, onMounted, computed, watch } from 'vue';
 import APIS from '../apis';
 
-import Card from 'primevue/card';
-import Button from 'primevue/button';
-import FileUpload from 'primevue/fileupload';
-import Dialog from 'primevue/dialog';
-import InputText from 'primevue/inputtext';
-import Textarea from 'primevue/textarea';
-import Chips from 'primevue/chips';
-import Slider from 'primevue/slider';
-
 const media = ref([]);
 const displayEditDialog = ref(false);
 const editingMedia = ref(null);

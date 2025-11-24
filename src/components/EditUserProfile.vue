@@ -3,14 +3,6 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import APIS from '../apis';
 
-import Card from 'primevue/card';
-import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
-import Textarea from 'primevue/textarea';
-import Password from 'primevue/password';
-import FileUpload from 'primevue/fileupload';
-import Avatar from 'primevue/avatar';
-
 const user = ref({});
 const router = useRouter();
 

@@ -22,7 +22,6 @@ import SingleVideo from './components/SingleVideo.vue';
 
 // PrimeVue & PrimeIcon
 import PrimeVue from 'primevue/config';
-import Aura from '@primevue/themes/aura';
 import 'primeicons/primeicons.css';
 
 // PrimeVue Components
@@ -30,9 +29,12 @@ import Menubar from 'primevue/menubar';
 import Avatar from 'primevue/avatar';
 import Button from 'primevue/button';
 import TieredMenu from 'primevue/tieredmenu';
-
+import DatePicker from 'primevue/datepicker';
 import Galleria from 'primevue/galleria';
 import Card from 'primevue/card';
+import ToggleButton from 'primevue/togglebutton';
+import Chips from 'primevue/chips';
+import Slider from 'primevue/slider';
 
 // PrimeVue Form
 import InputText from 'primevue/inputtext';
@@ -45,6 +47,13 @@ import FileUpload from 'primevue/fileupload';
 import ConfirmationService from "primevue/confirmationservice";
 import ToastService from "primevue/toastservice";
 import DialogService from "primevue/dialogservice";
+
+// Dialog
+import Dialog from 'primevue/dialog';
+
+// Video Player
+import { VideoPlayer } from '@videojs-player/vue';
+import 'video.js/dist/video-js.css';
 
 const app = createApp(App);
 
@@ -109,9 +118,6 @@ const router = createRouter({
 app.use(router);
 app.use(PrimeVue, { 
     ripple: true,
-    theme: {
-        preset: Aura
-    }
 });
 app.use(ConfirmationService);
 app.use(ToastService);
@@ -120,8 +126,11 @@ app.use(DialogService);
 app.component("Menubar", Menubar);
 app.component("Avatar", Avatar);
 app.component("TieredMenu", TieredMenu);
-
+app.component("DatePicker", DatePicker);
 app.component("Galleria", Galleria);
+app.component("ToggleButton", ToggleButton);
+app.component("Chips", Chips);
+app.component("Slider", Slider);
 
 app.component("InputText", InputText);
 app.component("Password", Password);
@@ -130,5 +139,9 @@ app.component("Message", Message);
 app.component("Card", Card);
 app.component('Textarea', Textarea);
 app.component('FileUpload', FileUpload);
+
+app.component('Dialog', Dialog);
+
+app.component('VideoPlayer', VideoPlayer);
 
 app.mount('#app');

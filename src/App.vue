@@ -6,11 +6,6 @@ import Toast from 'primevue/toast';
 import APIS from './apis';
 import i18n from './i18n';
 
-import Menubar from 'primevue/menubar';
-import Avatar from 'primevue/avatar';
-import Button from 'primevue/button';
-import TieredMenu from 'primevue/tieredmenu';
-
 const router = useRouter();
 const route = useRoute();
 const { t, locale } = useI18n();

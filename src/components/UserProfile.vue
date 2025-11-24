@@ -2,8 +2,6 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import APIS from '../apis';
-import Card from 'primevue/card';
-import Button from 'primevue/button';
 
 const router = useRouter();
 const user = ref({});
