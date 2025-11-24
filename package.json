@@ -9,8 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@primeuix/themes": "^1.2.5",
-    "@primevue/themes": "^4.4.1",
     "@videojs-player/vue": "^1.0.0",
     "primeicons": "^6.0.1",
     "primevue": "^4.4.1",
