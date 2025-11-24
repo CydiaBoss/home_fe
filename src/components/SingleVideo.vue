@@ -2,7 +2,6 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import APIS from '../apis';
-import Tag from 'primevue/tag';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();

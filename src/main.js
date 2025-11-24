@@ -22,6 +22,7 @@ import SingleVideo from './components/SingleVideo.vue';
 
 // PrimeVue & PrimeIcon
 import PrimeVue from 'primevue/config';
+import Aura from '@primeuix/themes/aura';
 import 'primeicons/primeicons.css';
 
 // PrimeVue Components
@@ -35,6 +36,7 @@ import Card from 'primevue/card';
 import ToggleButton from 'primevue/togglebutton';
 import InputChips from 'primevue/inputchips';
 import Slider from 'primevue/slider';
+import Tag from 'primevue/tag';
 
 // PrimeVue Form
 import InputText from 'primevue/inputtext';
@@ -118,6 +120,12 @@ const router = createRouter({
 app.use(router);
 app.use(PrimeVue, { 
     ripple: true,
+    theme: {
+        preset: Aura,
+        options: {
+            darkModeSelector: '.dark-mode'
+        }
+    }
 });
 app.use(ConfirmationService);
 app.use(ToastService);
@@ -131,6 +139,7 @@ app.component("Galleria", Galleria);
 app.component("ToggleButton", ToggleButton);
 app.component("InputChips", InputChips);
 app.component("Slider", Slider);
+app.component("Tag", Tag);
 
 app.component("InputText", InputText);
 app.component("Password", Password);

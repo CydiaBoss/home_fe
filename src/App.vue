@@ -109,9 +109,11 @@ const handleAvatarClick = (event) => {
 
 const toggleTheme = () => {
   isDark.value = !isDark.value;
-  const theme = isDark.value ? 'aura-dark-green' : 'aura-light-green';
-  const element = document.getElementById('theme-link');
-  element.setAttribute('href', `/themes/${theme}/theme.css`);
+  if (isDark.value) {
+    document.documentElement.classList.add('dark-mode');
+  } else {
+    document.documentElement.classList.remove('dark-mode');
+  }
 }
 
 onMounted(() => {
@@ -121,12 +123,9 @@ onMounted(() => {
     // Set initial theme based on browser preference
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     isDark.value = prefersDark;
-    const initialTheme = isDark.value ? 'aura-dark-green' : 'aura-light-green';
-    const element = document.createElement('link');
-    element.setAttribute('id', 'theme-link');
-    element.setAttribute('rel', 'stylesheet');
-    element.setAttribute('href', `/themes/${initialTheme}/theme.css`);
-    document.head.appendChild(element);
+    if (isDark.value) {
+        document.documentElement.classList.add('dark-mode');
+    }
 
     // Set initial language based on browser preference
     const browserLang = navigator.language;
@@ -154,37 +153,34 @@ function navigateTo(path) {
 </script>
 
 <template>
-  <Menubar class="menubar" :model="menus" breakpoint="600px">
-    <template #start>
-      <img class="logo" src="/home.svg" @click="navigateTo('/')"/>
-    </template>
-    <template #end>
-      <div class="end-components-container">
-        <div class="theme-switcher">
-          <Button :icon="isDark ? 'pi pi-moon' : 'pi pi-sun'" @click="toggleTheme" />
+  <div class="app-container">
+    <Menubar class="menubar" :model="menus" breakpoint="600px">
+      <template #start>
+        <img class="logo" src="/home.svg" @click="navigateTo('/')"/>
+      </template>
+      <template #end>
+        <div class="end-components-container">
+          <div class="theme-switcher">
+            <Button :icon="isDark ? 'pi pi-moon' : 'pi pi-sun'" @click="toggleTheme" />
+          </div>
+          <div class="lang-switcher">
+            <Button type="button" icon="pi pi-globe" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
+            <TieredMenu ref="menu" id="overlay_menu" :model="languageMenu" popup />
+          </div>
+          <Avatar v-if="isLoggedIn" class="user" :image="user.avatar" shape="circle" @click="handleAvatarClick" />
+          <Avatar v-else class="user" icon="pi pi-user" shape="circle" @click="handleAvatarClick" />
+          <TieredMenu ref="userMenu" id="user_menu" :model="userMenuItems" popup />
         </div>
-        <div class="lang-switcher">
-          <Button type="button" icon="pi pi-globe" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
-          <TieredMenu ref="menu" id="overlay_menu" :model="languageMenu" popup />
-        </div>
-        <Avatar v-if="isLoggedIn" class="user" :image="user.avatar" shape="circle" @click="handleAvatarClick" />
-        <Avatar v-else class="user" icon="pi pi-user" shape="circle" @click="handleAvatarClick" />
-        <TieredMenu ref="userMenu" id="user_menu" :model="userMenuItems" popup />
-      </div>
-    </template>
-  </Menubar>
-  <div class="routerview">
-    <RouterView/>
+      </template>
+    </Menubar>
+    <div class="routerview">
+      <RouterView/>
+    </div>
+    <Toast />
   </div>
-  <Toast />
 </template>
 
 <style>
-body {
-  background-color: var(--surface-ground);
-  color: var(--text-color);
-}
-
 .p-menubar-root-list {
   border-radius: 1rem;
   overflow: hidden;
@@ -193,6 +189,11 @@ body {
 </style>
 
 <style scoped>
+.app-container {
+  background-color: var(--surface-ground);
+  color: var(--text-color);
+  min-height: 100vh;
+}
 .logo {
   height: 4rem;
   padding: 1rem;
@@ -208,6 +209,13 @@ body {
   margin-bottom: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 0;
+  position: sticky;
+  top: 1rem;
+  z-index: 1000;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  width: calc(100% - 2rem);
 }
 .end-components-container {
   display: flex;
