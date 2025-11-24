@@ -153,31 +153,29 @@ function navigateTo(path) {
 </script>
 
 <template>
-  <div class="app-container">
-    <Menubar class="menubar" :model="menus" breakpoint="600px">
-      <template #start>
-        <img class="logo" src="/home.svg" @click="navigateTo('/')"/>
-      </template>
-      <template #end>
-        <div class="end-components-container">
-          <div class="theme-switcher">
-            <Button :icon="isDark ? 'pi pi-moon' : 'pi pi-sun'" @click="toggleTheme" />
-          </div>
-          <div class="lang-switcher">
-            <Button type="button" icon="pi pi-globe" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
-            <TieredMenu ref="menu" id="overlay_menu" :model="languageMenu" popup />
-          </div>
-          <Avatar v-if="isLoggedIn" class="user" :image="user.avatar" shape="circle" @click="handleAvatarClick" />
-          <Avatar v-else class="user" icon="pi pi-user" shape="circle" @click="handleAvatarClick" />
-          <TieredMenu ref="userMenu" id="user_menu" :model="userMenuItems" popup />
+  <Menubar class="menubar" :model="menus" breakpoint="600px">
+    <template #start>
+      <img class="logo" src="/home.svg" @click="navigateTo('/')"/>
+    </template>
+    <template #end>
+      <div class="end-components-container">
+        <div class="theme-switcher">
+          <Button :icon="isDark ? 'pi pi-moon' : 'pi pi-sun'" @click="toggleTheme" />
         </div>
-      </template>
-    </Menubar>
-    <div class="routerview">
-      <RouterView/>
-    </div>
-    <Toast />
+        <div class="lang-switcher">
+          <Button type="button" icon="pi pi-globe" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
+          <TieredMenu ref="menu" id="overlay_menu" :model="languageMenu" popup />
+        </div>
+        <Avatar v-if="isLoggedIn" class="user" :image="user.avatar" shape="circle" @click="handleAvatarClick" />
+        <Avatar v-else class="user" icon="pi pi-user" shape="circle" @click="handleAvatarClick" />
+        <TieredMenu ref="userMenu" id="user_menu" :model="userMenuItems" popup />
+      </div>
+    </template>
+  </Menubar>
+  <div class="routerview">
+    <RouterView/>
   </div>
+  <Toast />
 </template>
 
 <style>
@@ -189,11 +187,6 @@ function navigateTo(path) {
 </style>
 
 <style scoped>
-.app-container {
-  background-color: var(--surface-ground);
-  color: var(--text-color);
-  min-height: 100vh;
-}
 .logo {
   height: 4rem;
   padding: 1rem;
@@ -234,7 +227,7 @@ function navigateTo(path) {
   min-height: 80vh;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: -1rem auto auto;
   padding: 1rem;
 }
 </style>
