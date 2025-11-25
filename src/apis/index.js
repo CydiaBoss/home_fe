@@ -70,8 +70,17 @@ function setTestMode(enabled) {
 	testMode = enabled;
 }
 
+async function getMedia(page = 1, limit = 10) {
+  const profile = await user.getUserProfile();
+  const allMedia = [...profile.photos, ...profile.videos];
+  const start = (page - 1) * limit;
+  const end = page * limit;
+  return { media: allMedia.slice(start, end) };
+}
+
 export default {
 	loginUser,
 	setTestMode,
+  getMedia,
   ...user
 };
