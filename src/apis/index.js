@@ -73,9 +73,10 @@ function setTestMode(enabled) {
 async function getMedia(page = 1, limit = 10) {
   const profile = await user.getUserProfile();
   const allMedia = [...profile.photos, ...profile.videos];
-  const start = (page - 1) * limit;
-  const end = page * limit;
-  return { media: allMedia.slice(start, end) };
+  // Eventually will be random infinte media
+//   const start = (page - 1) * limit;
+//   const end = page * limit;
+  return { media: allMedia/*.slice(start, end)*/ };
 }
 
 export default {
