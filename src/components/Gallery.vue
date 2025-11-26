@@ -77,7 +77,6 @@ const pauseVideo = (event) => {
 
 <template>
   <div class="media-gallery-container">
-    <h1>{{ t('pages.gallery.title') }}</h1>
     <div class="media-grid">
       <div v-for="item in media" :key="item.id" class="grid-item">
         <Card @click="goToMedia(item)">
