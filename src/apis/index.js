@@ -9,7 +9,7 @@ let testMode = false;
  * @param {RequestInfo} request the request body
  * @returns {Promise<Object>} the JSON body of the request
  */
-function callBackend(endpoint, request, redirect=true) {
+function callBackend(endpoint, request, auth=true, redirect=true) {
 	if (testMode) {
 		return new Promise((resolve) => {
 			switch(endpoint) {
@@ -24,6 +24,26 @@ function callBackend(endpoint, request, redirect=true) {
 					break;
 			}
 		});
+	}
+
+	if (auth) {
+		// Look for token
+		let token = "";
+		for(let cookie of document.cookie.split("; ")) {
+			// Check for token
+			let cookie_parts = cookie.split("=");
+			if (cookie_parts[0] == "token") {
+				token = cookie_parts[1];
+				break;
+			}
+		}
+		request = {
+			...request,
+			headers: {
+				...request.headers,
+				"Authorization": "Token " + token
+			}
+		}
 	}
 
 	return fetch(`${import.meta.env.VITE_BACKEND}/${endpoint}`, request).then((resp) => {
@@ -41,8 +61,11 @@ function callBackend(endpoint, request, redirect=true) {
 					}
 				}
 
-				// Check 
+				// If token exists,
 			}
+
+			// Return JSON object
+			return json_resp;
 		});
 	});
 }
@@ -60,10 +83,10 @@ function loginUser(username, password) {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
-			username: username.value,
-			password: password.value
+			username: username,
+			password: password
 		})
-	});
+	}, false, false);
 }
 
 function setTestMode(enabled) {

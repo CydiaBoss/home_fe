@@ -29,6 +29,9 @@ function loginUser() {
 
   // Send off request to backend
   APIS.loginUser(username.value, password.value).then((resp) => {
+
+    console.log(resp);
+
     // On fail
     if (resp.success == "fail") {
       errors.value.push("messages.errors.incorrectCredentials");
