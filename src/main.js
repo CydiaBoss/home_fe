@@ -1,5 +1,6 @@
 import { createApp, watch } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
+import { createPinia } from 'pinia';
 import './style.css';
 
 // Localization
@@ -114,6 +115,10 @@ const router = createRouter({
 });
 
 app.use(router);
+
+const pinia = createPinia();
+
+app.use(pinia);
 app.use(PrimeVue, { 
     ripple: true,
     theme: {

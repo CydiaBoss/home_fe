@@ -11,6 +11,7 @@
   "dependencies": {
     "@primeuix/themes": "^1.2.5",
     "@videojs-player/vue": "^1.0.0",
+    "pinia": "^3.0.4",
     "primeicons": "^6.0.1",
     "primevue": "^4.4.1",
     "vue": "^3.2.45",

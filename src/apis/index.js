@@ -1,4 +1,7 @@
+import { useRouter } from 'vue-router';
 import user from './user';
+
+const router = useRouter();
 
 let testMode = false;
 
@@ -10,33 +13,10 @@ let testMode = false;
  * @returns {Promise<Object>} the JSON body of the request
  */
 function callBackend(endpoint, request, auth=true, redirect=true) {
-	if (testMode) {
-		return new Promise((resolve) => {
-			switch(endpoint) {
-				case "user/login/":
-					resolve({
-						success: "ok",
-						token: "test-token"
-					});
-					break;
-				default:
-					resolve(user.getUserProfile());
-					break;
-			}
-		});
-	}
-
 	if (auth) {
 		// Look for token
-		let token = "";
-		for(let cookie of document.cookie.split("; ")) {
-			// Check for token
-			let cookie_parts = cookie.split("=");
-			if (cookie_parts[0] == "token") {
-				token = cookie_parts[1];
-				break;
-			}
-		}
+		let token = window.sessionStorage.getItem("token");
+		
 		request = {
 			...request,
 			headers: {
@@ -51,22 +31,40 @@ function callBackend(endpoint, request, auth=true, redirect=true) {
 			// Failure Check
 			if (json_resp.success == "fail" && redirect) {
 				// Look for cookie
-				let token = "";
-				for(let cookie of document.cookie.split("; ")) {
-					// Check for token
-					let cookie_parts = cookie.split("=");
-					if (cookie_parts[0] == "token") {
-						token = cookie_parts[1];
-						break;
-					}
-				}
+				let token = window.sessionStorage.getItem("token");
 
-				// If token exists,
+				// If token exists, test, or fail (redirect)
+				if (token == null) {
+    				router.push('/login');
+				}
 			}
 
 			// Return JSON object
 			return json_resp;
 		});
+	});
+}
+
+/**
+ * Gets the media associated with a path
+ * 
+ * @param {String} path 
+ * @returns {Promise<String>} the media of the request in Data URL form
+ */
+function getMedia(path) {
+	// Look for token
+	let token = window.sessionStorage.getItem("token");
+	let request = {
+		method: "GET",
+		headers: {
+			"Authorization": "Token " + token
+		}
+	}
+
+	return fetch(`${import.meta.env.VITE_BACKEND}/cdn/media/${path}`, request).then((resp) => {
+		return resp.blob().then((blob) => {
+			return URL.createObjectURL(blob);
+		})
 	});
 }
 
@@ -89,22 +87,19 @@ function loginUser(username, password) {
 	}, false, false);
 }
 
-function setTestMode(enabled) {
-	testMode = enabled;
-}
-
-async function getMedia(page = 1, limit = 10) {
-  const profile = await user.getUserProfile();
-  const allMedia = [...profile.photos, ...profile.videos];
-  // Eventually will be random infinte media
-//   const start = (page - 1) * limit;
-//   const end = page * limit;
-  return { media: allMedia/*.slice(start, end)*/ };
+/**
+ * Gets user data
+ * @returns {Promise<Object>} the JSON body with the user's data if successful
+ */
+function getUserProfile() {
+	return callBackend("user/data/", {
+		method: "GET"
+	});
 }
 
 export default {
 	loginUser,
-	setTestMode,
-  getMedia,
-  ...user
+	getUserProfile,
+  	getMedia,
+  	...user
 };

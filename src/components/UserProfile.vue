@@ -1,19 +1,16 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '../stores/user';
 import APIS from '../apis';
 
 const router = useRouter();
-const user = ref({});
+const userStore = useUserStore();
 const photos = ref([]);
 const videos = ref([]);
 
 onMounted(() => {
-  APIS.getUserProfile().then((response) => {
-    user.value = response.user;
-    photos.value = response.photos;
-    videos.value = response.videos.map(v => ({...v, thumbnailTime: v.thumbnailTime || 0.1}));
-  });
+  
 });
 
 const photoAnimationDuration = computed(() => {
@@ -46,14 +43,14 @@ const goToVideo = (video) => {
     <Card class="profile-card">
       <template #header>
         <div class="header-wrapper">
-          <img class="header-pic" :src="user.avatar" />
-           <Button icon="pi pi-cog" class="edit-button p-button-rounded p-button-secondary" @click="navigateTo('/profile/edit')" />
+          <img class="header-pic" :src="userStore.avatar" />
+          <Button icon="pi pi-cog" class="edit-button p-button-rounded p-button-secondary" @click="navigateTo('/profile/edit')" />
         </div>
       </template>
-      <template #title>{{ user.name }}</template>
-      <template #subtitle>{{ user.email }}</template>
+      <template #title>{{ userStore.user.full_name }}</template>
+      <template #subtitle>{{ userStore.user.email }}</template>
       <template #content>
-        <p>{{ user.bio }}</p>
+        <p>{{ userStore.user.bio }}</p>
       </template>
     </Card>
 
@@ -102,7 +99,7 @@ const goToVideo = (video) => {
 }
 
 .edit-button {
-    position: absolute;
+    position: absolute !important;
     top: 1rem;
     right: 1rem;
 }

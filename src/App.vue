@@ -2,6 +2,8 @@
 import { ref, watch, onMounted, computed } from 'vue';
 import { RouterView, useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import { useUserStore } from './stores/user';
+import { storeToRefs } from 'pinia';
 import Toast from 'primevue/toast';
 import APIS from './apis';
 import i18n from './i18n';
@@ -13,17 +15,24 @@ const menu = ref();
 const userMenu = ref();
 const isDark = ref(false);
 const isLoggedIn = ref(false);
-const user = ref({});
+const userStore = useUserStore();
+const { user, avatar } = storeToRefs(userStore);
 
 const menus = ref([]);
 
 const checkLoginStatus = () => {
-  const token = document.cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1];
+  const token = window.sessionStorage.getItem("token");
   isLoggedIn.value = !!token;
   if (isLoggedIn.value) {
     APIS.getUserProfile().then(data => {
-      user.value = data.user;
+      user.value = data.payload;
+      if (userStore.user?.avatar == null) return;
+      APIS.getMedia(userStore.user.avatar).then(imgURL => avatar.value = imgURL);
     });
+  }else{
+    // Clear User Store
+    user.value = {};
+    avatar.value = "/avatar.svg";
   }
 };
 
@@ -32,7 +41,7 @@ const generateMenus = () => {
     {
       label: t('pages.home.title'),
       icon: 'pi pi-home',
-      command: () => navigateTo("/")
+      command: () => router.push("/")
     }
   ];
   if (isLoggedIn.value) {
@@ -40,11 +49,11 @@ const generateMenus = () => {
       {
         label: t('pages.gallery.title'),
         icon: 'pi pi-images',
-        command: () => navigateTo("/photos")
+        command: () => router.push("/photos")
       },{
         label: t('pages.myMedia.title') ,
         icon: 'pi pi-user',
-        command: () => navigateTo("/my-media")
+        command: () => router.push("/my-media")
       }
     );
   }
@@ -77,13 +86,13 @@ const generateUserMenuItems = () => {
         {
             label: t('pages.userProfile.title'),
             icon: 'pi pi-user',
-            command: () => navigateTo('/profile')
+            command: () => router.push('/profile')
         },
         {
             label: t('actions.logout'),
             icon: 'pi pi-sign-out',
             command: () => {
-                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                window.sessionStorage.removeItem("token");
                 checkLoginStatus();
                 router.push('/login');
             }
@@ -103,7 +112,7 @@ const handleAvatarClick = (event) => {
   if (isLoggedIn.value) {
     toggleUserMenu(event);
   } else {
-    navigateTo('/login');
+    router.push('/login');
   }
 };
 
@@ -141,21 +150,12 @@ onMounted(() => {
         locale.value = 'en';
     }
 });
-
-/**
- * Controls Router
- * 
- * @param path Nagivate to the given path
- */
-function navigateTo(path) {
-  router.push(path);
-}
 </script>
 
 <template>
   <Menubar class="menubar" :model="menus" breakpoint="600px">
     <template #start>
-      <img class="logo" src="/home.svg" @click="navigateTo('/')"/>
+      <img class="logo" src="/home.svg" @click="router.push('/')"/>
     </template>
     <template #end>
       <div class="end-components-container">
@@ -166,8 +166,7 @@ function navigateTo(path) {
           <Button type="button" icon="pi pi-globe" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
           <TieredMenu ref="menu" id="overlay_menu" :model="languageMenu" popup />
         </div>
-        <Avatar v-if="isLoggedIn" class="user" :image="user.avatar" shape="circle" @click="handleAvatarClick" />
-        <Avatar v-else class="user" icon="pi pi-user" shape="circle" @click="handleAvatarClick" />
+        <Avatar class="user" :icon="isLoggedIn ? '' : 'pi pi-user'" :image="avatar" shape="circle" @click="handleAvatarClick" aria-haspopup="true" aria-controls="user_menu" />
         <TieredMenu ref="userMenu" id="user_menu" :model="userMenuItems" popup />
       </div>
     </template>

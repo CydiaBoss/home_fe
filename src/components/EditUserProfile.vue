@@ -2,14 +2,19 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import APIS from '../apis';
+import { useUserStore } from '../stores/user';
 
-const user = ref({});
+const userStore = useUserStore();
+const name = ref("");
+const email = ref("");
+const bio = ref("");
+const password = ref("");
 const router = useRouter();
 
 onMounted(() => {
-  APIS.getUserProfile().then(data => {
-    user.value = data.user;
-  });
+  name.value = userStore.user.full_name;
+  bio.value = userStore.user.bio;
+  email.value = userStore.user.email;
 });
 
 const onUpload = (event) => {
@@ -43,26 +48,26 @@ const saveProfile = () => {
           <div class="field">
             <label>{{ $t('form.avatar') }}</label>
             <div class="avatar-upload">
-              <Avatar :image="user.avatar" class="avatar-preview" shape="circle" />
+              <Avatar :image="userStore.avatar" class="avatar-preview" shape="circle" />
               <FileUpload mode="basic" name="avatar[]" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :chooseLabel="$t('actions.browse')" />
             </div>
           </div>
           <div class="field"><!-- Buffer --></div>
           <div class="field">
             <label for="name">{{ $t('form.name') }}</label>
-            <InputText id="name" v-model="user.name" />
+            <InputText id="name" v-model="name" />
           </div>
           <div class="field">
             <label for="email">{{ $t('form.email') }}</label>
-            <InputText id="email" v-model="user.email" />
+            <InputText id="email" v-model="email" />
           </div>
           <div class="field">
             <label for="bio">{{ $t('form.bio') }}</label>
-            <Textarea id="bio" v-model="user.bio" rows="5" />
+            <Textarea id="bio" v-model="bio" rows="5" />
           </div>
           <div class="field">
             <label for="password">{{ $t('form.newPassword') }}</label>
-            <Password id="password" v-model="user.password" />
+            <Password id="password" v-model="password" />
           </div>
         </div>
       </template>
