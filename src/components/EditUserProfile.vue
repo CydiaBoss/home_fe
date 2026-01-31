@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import APIS from '../apis';
 import { useUserStore } from '../stores/user';
+import { useToast } from 'primevue/usetoast';
 
 const userStore = useUserStore();
 const name = ref("");
@@ -10,6 +11,7 @@ const email = ref("");
 const bio = ref("");
 const password = ref("");
 const router = useRouter();
+const toast = useToast();
 
 onMounted(() => {
   name.value = userStore.user.full_name;
@@ -21,7 +23,7 @@ const onUpload = (event) => {
   const file = event.files[0];
   const reader = new FileReader();
   reader.onload = (e) => {
-    user.value.avatar = e.target.result;
+    userStore.avatar.value = e.target.result;
   };
   reader.readAsDataURL(file);
 };
@@ -31,9 +33,31 @@ const cancelEdit = () => {
 };
 
 const saveProfile = () => {
-  // In a real app, you'd call an API to save the profile.
-  // For now, just navigate back to the profile page.
-  router.push('/profile');
+  const nameParts = name.value.split(" ");
+  let userPayload = {
+    first_name: nameParts.slice(0, -1).join(" "),
+    last_name: nameParts.at(-1),
+    bio: bio.value,
+    email: email.value
+  };
+
+  // Add password if needed
+  if (password.value != "") {
+    userPayload.password = password.value;
+  }
+
+  // Update
+  APIS.updateUserProfile(userPayload).then(resp => {
+    const isError = resp.success != "success";
+    toast.add({
+      severity: isError ? 'error' : 'success', 
+      summary: 'User Details', 
+      detail: isError ? 'Failed to save: ' + resp.message : "Saved successfully", 
+      life: 3000
+    });
+    if (!isError)
+      router.push('/profile');
+  });
 };
 </script>
 
@@ -44,15 +68,14 @@ const saveProfile = () => {
         {{ $t('pages.userProfile.editTitle') }}
       </template>
       <template #content>
-        <div class="form-grid">
-          <div class="field">
-            <label>{{ $t('form.avatar') }}</label>
-            <div class="avatar-upload">
-              <Avatar :image="userStore.avatar" class="avatar-preview" shape="circle" />
-              <FileUpload mode="basic" name="avatar[]" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :chooseLabel="$t('actions.browse')" />
-            </div>
+        <div class="field">
+          <label>{{ $t('form.avatar') }}</label>
+          <div class="avatar-upload">
+            <Avatar :image="userStore.avatar" class="avatar-preview" shape="circle" />
+            <FileUpload mode="basic" name="avatar[]" url="./upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :chooseLabel="$t('actions.browse')" />
           </div>
-          <div class="field"><!-- Buffer --></div>
+        </div>
+        <div class="form-grid">
           <div class="field">
             <label for="name">{{ $t('form.name') }}</label>
             <InputText id="name" v-model="name" />

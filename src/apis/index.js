@@ -97,9 +97,25 @@ function getUserProfile() {
 	});
 }
 
+/**
+ * Updates user data
+ * @param {Object} payload updated fields to send
+ * @returns {Promise<Object>} the JSON body with the user's data if successful
+ */
+function updateUserProfile(payload) {
+	return callBackend("user/data/", {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(payload)
+	});
+}
+
 export default {
 	loginUser,
 	getUserProfile,
+	updateUserProfile,
   	getMedia,
   	...user
 };

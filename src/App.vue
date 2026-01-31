@@ -60,6 +60,13 @@ const generateMenus = () => {
   menus.value = newMenus;
 };
 
+watch(isDark, () => {
+  if (isDark.value) {
+    document.documentElement.classList.add('dark-mode');
+  } else {
+    document.documentElement.classList.remove('dark-mode');
+  }
+});
 watch(locale, () => {
     generateMenus();
     generateUserMenuItems();
@@ -118,23 +125,12 @@ const handleAvatarClick = (event) => {
 
 const toggleTheme = () => {
   isDark.value = !isDark.value;
-  if (isDark.value) {
-    document.documentElement.classList.add('dark-mode');
-  } else {
-    document.documentElement.classList.remove('dark-mode');
-  }
 }
 
 onMounted(() => {
-    checkLoginStatus();
-    generateMenus();
-    generateUserMenuItems();
     // Set initial theme based on browser preference
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     isDark.value = prefersDark;
-    if (isDark.value) {
-        document.documentElement.classList.add('dark-mode');
-    }
 
     // Set initial language based on browser preference
     const browserLang = navigator.language;
@@ -149,6 +145,11 @@ onMounted(() => {
     } else {
         locale.value = 'en';
     }
+
+    // Adjust if logged in
+    checkLoginStatus();
+    generateMenus();
+    generateUserMenuItems();
 });
 </script>
 
